@@ -1,0 +1,26 @@
+{
+  "siteName": "Freelancer OS",
+  "tagline": "Build a Smarter Freelancer Business Without Guesswork",
+  "contactEmail": "surisetti.dev@gmail.com",
+  "supportEmail": "surisetti.dev@gmail.com",
+  "fromEmail": "surisetti.dev@gmail.com",
+  "primaryDomain": "https://your-domain.pages.dev",
+  "githubRepo": "https://github.com/surisettidev/DigitalProductBusiness",
+  "currency": "INR",
+  "currencySymbol": "₹",
+  "checkoutProvider": "payhip",
+  "newsletterProvider": "brevo",
+  "analytics": {
+    "ga4Id": "G-XXXXXXX",
+    "clarityId": "xxxxxxxxxx"
+  },
+  "social": {
+    "twitter": "",
+    "linkedin": "",
+    "reddit": ""
+  },
+  "leadMagnet": {
+    "title": "Free Freelancer Pricing Calculator",
+    "downloadUrl": "https://payhip.com/b/YOUR_FREE_PRODUCT_ID"
+  }
+}
