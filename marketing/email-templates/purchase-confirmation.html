@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your purchase is confirmed</title>
+<style>
+  body{margin:0;padding:0;background:#f8fafc;font-family:'Segoe UI',Arial,sans-serif}
+  .wrap{max-width:560px;margin:40px auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
+  .header{background:#16a34a;padding:28px 32px;text-align:center}
+  .header h1{color:#fff;font-size:1.3rem;margin:0}
+  .body{padding:32px}
+  .body h2{font-size:1.15rem;color:#0f172a;margin:0 0 12px}
+  .body p{color:#475569;font-size:.97rem;line-height:1.6;margin:0 0 16px}
+  .order-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 20px;margin:16px 0}
+  .order-box p{margin:4px 0;font-size:.9rem}
+  .btn{display:inline-block;background:#2563eb;color:#fff!important;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;font-size:.97rem}
+  .footer{padding:16px 32px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:.8rem;color:#94a3b8;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header"><h1>✅ Purchase confirmed</h1></div>
+  <div class="body">
+    <h2>You're all set!</h2>
+    <p>Your download is ready. Click below to access it anytime.</p>
+    <div class="order-box">
+      <p><strong>Product:</strong> {{PRODUCT_NAME}}</p>
+      <p><strong>Order ID:</strong> {{ORDER_ID}}</p>
+      <p><strong>Amount:</strong> ₹{{AMOUNT}}</p>
+    </div>
+    <p style="text-align:center;margin:24px 0"><a class="btn" href="{{DOWNLOAD_URL}}">Download now →</a></p>
+    <p>The link also works forever from your Payhip account. If anything doesn't work, reply to this email — I'll sort it within 24 hours.</p>
+    <p>7-day money-back guarantee if it doesn't help. Just say the word.</p>
+    <p>— Surisetti</p>
+  </div>
+  <div class="footer">
+    Freelancer OS · <a href="/cdn-cgi/l/email-protection#cdbeb8bfa4bea8b9b9a4e3a9a8bb8daaa0aca4a1e3aea2a0" style="color:#94a3b8"><span class="__cf_email__" data-cfemail="691a1c1b001a0c1d1d00470d0c1f290e04080005470a0604">[email&#160;protected]</span></a>
+  </div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>
