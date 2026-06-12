@@ -1,0 +1,17 @@
+{
+  "name": "digital-product-business",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Freelancer OS — AI-agnostic digital product business for Indian freelancers",
+  "scripts": {
+    "dev": "npx serve .",
+    "deploy": "echo 'Push to main — Cloudflare Pages auto-deploys'",
+    "ai:daily": "node workflows/content-generator.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
