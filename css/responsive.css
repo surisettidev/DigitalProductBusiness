@@ -1,0 +1,22 @@
+@media (max-width: 900px) {
+  h1 { font-size: 1.9rem; }
+  h2 { font-size: 1.5rem; }
+  .pain-grid, .products-grid, .faq-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .admin-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .navbar nav a { margin-left: 12px; font-size: .9rem; }
+  .pain-grid, .products-grid, .faq-grid, .footer-grid { grid-template-columns: 1fr; }
+  .lead-form { flex-direction: column; }
+  .lead-form input, .lead-form button { width: 100%; }
+  .admin-grid { grid-template-columns: 1fr; }
+  .admin-table { font-size: .8rem; }
+  .native-ads-strip { flex-direction: column; }
+  /* Hide sticky bar on mobile to keep UX clean */
+  #sticky-ad-bar { display: none !important; }
+}
+@media (max-width: 900px) {
+  .native-ads-strip { gap: 12px; }
+}
