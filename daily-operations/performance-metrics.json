@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "lastUpdated": "2026-06-12",
+  "month1": {
+    "target": 15000,
+    "actual": 0,
+    "salesCount": 0,
+    "visitors": 0,
+    "subscribers": 0,
+    "conversionRate": 0
+  },
+  "byProduct": {
+    "ai-freelancer": { "units": 0, "revenue": 0 },
+    "pricing-guide": { "units": 0, "revenue": 0 },
+    "tax-guide": { "units": 0, "revenue": 0 },
+    "client-gen": { "units": 0, "revenue": 0 },
+    "business-os": { "units": 0, "revenue": 0 },
+    "bundle": { "units": 0, "revenue": 0 }
+  },
+  "byChannel": {
+    "reddit": { "visitors": 0, "sales": 0 },
+    "twitter": { "visitors": 0, "sales": 0 },
+    "linkedin": { "visitors": 0, "sales": 0 },
+    "direct": { "visitors": 0, "sales": 0 },
+    "organic": { "visitors": 0, "sales": 0 }
+  }
+}
