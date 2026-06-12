@@ -22,46 +22,73 @@
     .gate-logo{font-size:1.8rem;margin-bottom:12px}
   </style>
   <script>
-    // Admin gate — checks sessionStorage so you only type once per browser tab session.
-    // Password hash is SHA-256 of the passphrase stored as a constant below.
-    // Default password: FOS@Admin2026  — change by updating ADMIN_HASH below.
-    // To generate a new hash: btoa(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword')))
-    // Or run: node -e "crypto.subtle.digest('SHA-256',new TextEncoder().encode('X')).then(b=>console.log(Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')))"
-    const ADMIN_HASH = 'b3f3db44ca3b64f4e3a2d5b3e4e3e1b4b2e4c3d4a1b2c3d4e5f6a7b8c9d0e1f2'; // placeholder — overwritten on load
-    const SESSION_KEY = 'fos_admin_auth';
-
-    async function sha256hex(str) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-
-    // Real hash of default password "FOS@Admin2026"
-    const REAL_HASH_PROMISE = sha256hex('FOS@Admin2026');
+    // ============================================================
+    // SERVER-SIDE admin gate.
+    // The password lives only in the Cloudflare env var ADMIN_PASSWORD
+    // — it is never present in this file or anywhere in the repo.
+    // /api/admin-auth   → checks password, returns a signed expiring token
+    // /api/admin-verify → validates the stored token on page load
+    // ============================================================
+    const SESSION_KEY = 'fos_admin_token';
 
     async function checkGate() {
-      if (sessionStorage.getItem(SESSION_KEY) === 'ok') { unlockDash(); return; }
       const gate = document.getElementById('admin-gate');
       gate.style.display = 'flex';
+
+      // Re-validate any stored token server-side
+      const stored = sessionStorage.getItem(SESSION_KEY);
+      if (stored) {
+        try {
+          const res = await fetch('/api/admin-verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: stored })
+          });
+          const j = await res.json();
+          if (j.ok) { unlockDash(); return; }
+        } catch (_) {}
+        sessionStorage.removeItem(SESSION_KEY);
+      }
+
       document.getElementById('gate-form').addEventListener('submit', async e => {
         e.preventDefault();
-        const pass = document.getElementById('gate-pass').value;
-        const entered = await sha256hex(pass);
-        const correct = await REAL_HASH_PROMISE;
-        if (entered === correct) {
-          sessionStorage.setItem(SESSION_KEY, 'ok');
-          gate.style.opacity = '0';
-          gate.style.transition = 'opacity .3s';
-          setTimeout(() => { gate.style.display = 'none'; }, 300);
-        } else {
-          document.getElementById('gate-error').style.display = 'block';
-          document.getElementById('gate-pass').value = '';
-          document.getElementById('gate-pass').focus();
+        const btn = e.target.querySelector('button');
+        const errEl = document.getElementById('gate-error');
+        btn.textContent = 'Checking…'; btn.disabled = true;
+        errEl.style.display = 'none';
+        try {
+          const res = await fetch('/api/admin-auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: document.getElementById('gate-pass').value })
+          });
+          const j = await res.json();
+          if (j.ok && j.token) {
+            sessionStorage.setItem(SESSION_KEY, j.token);
+            unlockDash(true);
+            return;
+          }
+          errEl.textContent = j.error || 'Incorrect password. Try again.';
+        } catch (_) {
+          errEl.textContent = 'Could not reach the auth server. Try again.';
         }
+        errEl.style.display = 'block';
+        document.getElementById('gate-pass').value = '';
+        document.getElementById('gate-pass').focus();
+        btn.textContent = 'Unlock →'; btn.disabled = false;
       });
     }
-    function unlockDash() {
+
+    function unlockDash(animate) {
       const g = document.getElementById('admin-gate');
-      if (g) g.style.display = 'none';
+      if (!g) return;
+      if (animate) {
+        g.style.opacity = '0';
+        g.style.transition = 'opacity .3s';
+        setTimeout(() => { g.style.display = 'none'; }, 300);
+      } else {
+        g.style.display = 'none';
+      }
     }
     window.addEventListener('DOMContentLoaded', checkGate);
   </script>
@@ -96,7 +123,7 @@
 <body>
 
 <!-- Admin Gate Modal -->
-<div id="admin-gate" style="display:none">
+<div id="admin-gate" style="display:flex">
   <div class="gate-box">
     <div class="gate-logo">🔐</div>
     <h2>Operator Dashboard</h2>
@@ -626,5 +653,5 @@ function fmtDate(val) {
 loadAll();
 setInterval(loadAll, 60000); // refresh every minute
 </script>
-<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</body>
 </html>

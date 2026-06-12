@@ -1,0 +1,152 @@
+// ============================================================
+// Shared server-side helpers for Cloudflare Pages Functions.
+// Files starting with "_" are NOT exposed as routes.
+// ============================================================
+
+// ---- Server-side product catalog (authoritative prices in paise) ----
+// NEVER trust prices from the client. Amounts here are INR paise.
+export const CATALOG = {
+  'ai-freelancer': { name: 'AI for Freelancers Guide',                 amount: 69900 },
+  'pricing-guide': { name: 'Freelancer Pricing Masterclass',           amount: 89900 },
+  'tax-guide':     { name: 'Indian Freelancer Tax & Compliance Guide', amount: 79900 },
+  'client-gen':    { name: 'Client Generation & Lead System',          amount: 129900 },
+  'business-os':   { name: 'Solopreneur Business OS',                  amount: 189900 },
+  'bundle':        { name: 'Complete Freelancer OS (All 5)',           amount: 399900 }
+};
+
+// Bundle expands to all 5 product slugs for delivery
+export const BUNDLE_SLUGS = ['ai-freelancer', 'pricing-guide', 'tax-guide', 'client-gen', 'business-os'];
+
+export function json(data, status = 200, extraHeaders = {}) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders }
+  });
+}
+
+// ---- Crypto helpers (Web Crypto — Workers runtime, no Node APIs) ----
+export async function hmacSha256Hex(secret, message) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(message));
+  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+export function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let out = 0;
+  for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return out === 0;
+}
+
+// ---- Delivery links ----
+// Operator sets a Cloudflare env var DELIVERY_LINKS as JSON, e.g.:
+//   {"ai-freelancer":"https://drive.google.com/...","pricing-guide":"https://..."}
+// Until set, customers see a friendly "we'll email it shortly" fallback and
+// the operator gets notified via the sales log.
+export function getDeliveryItems(env, slug) {
+  let links = {};
+  try { links = JSON.parse(env.DELIVERY_LINKS || '{}'); } catch (_) { /* malformed JSON */ }
+  const slugs = slug === 'bundle' ? BUNDLE_SLUGS : [slug];
+  return slugs.map(s => ({
+    slug: s,
+    name: (CATALOG[s] || {}).name || s,
+    url: links[s] || null
+  }));
+}
+
+// ---- Brevo transactional email (product delivery) ----
+export async function sendDeliveryEmail(env, { email, name, slug, paymentId }) {
+  if (!env.BREVO_API_KEY || !email) return false;
+  const items = getDeliveryItems(env, slug);
+  const productName = (CATALOG[slug] || {}).name || slug;
+
+  const linksHtml = items.map(it => it.url
+    ? `<tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+         <strong style="color:#0f172a;">${it.name}</strong><br>
+         <a href="${it.url}" style="display:inline-block;margin-top:6px;background:#2563eb;color:#ffffff;padding:9px 18px;border-radius:8px;text-decoration:none;font-weight:600;">Download →</a>
+       </td></tr>`
+    : `<tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+         <strong style="color:#0f172a;">${it.name}</strong><br>
+         <span style="color:#475569;">Your download link will be emailed within a few hours. Reply to this email if you need it sooner.</span>
+       </td></tr>`
+  ).join('');
+
+  const html = `
+  <div style="font-family:Inter,'Segoe UI',Arial,sans-serif;max-width:560px;margin:0 auto;background:#ffffff;">
+    <div style="background:#0f172a;padding:22px 28px;border-radius:12px 12px 0 0;">
+      <span style="color:#ffffff;font-weight:800;font-size:18px;">Freelancer OS</span>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:28px;">
+      <h2 style="color:#0f172a;margin:0 0 8px;">Payment received — here's your product 🎉</h2>
+      <p style="color:#475569;">Thanks for buying <strong>${productName}</strong>. Your downloads:</p>
+      <table style="width:100%;border-collapse:collapse;">${linksHtml}</table>
+      <p style="color:#475569;margin-top:18px;font-size:14px;">
+        Payment reference: <code>${paymentId || '-'}</code><br>
+        7-day money-back guarantee — just reply to this email if it didn't help you.
+      </p>
+      <p style="color:#94a3b8;font-size:12px;margin-top:22px;">
+        Freelancer OS · Practical digital products for Indian freelancers<br>
+        Support: ${env.SUPPORT_EMAIL || 'surisetti.dev@gmail.com'}
+      </p>
+    </div>
+  </div>`;
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sender: { name: 'Freelancer OS', email: env.FROM_EMAIL || 'surisetti.dev@gmail.com' },
+      to: [{ email, name: name || email.split('@')[0] }],
+      subject: `Your ${productName} — download inside`,
+      htmlContent: html
+    })
+  });
+  return res.ok;
+}
+
+// ---- Add buyer to Brevo contact list (tagged as customer) ----
+export async function addBrevoContact(env, { email, slug }) {
+  if (!env.BREVO_API_KEY || !email) return false;
+  try {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        listIds: [parseInt(env.BREVO_LIST_ID || '2', 10)],
+        attributes: { SOURCE: 'purchase:' + slug, SIGNUP_DATE: new Date().toISOString() },
+        updateEnabled: true
+      })
+    });
+    return res.ok || res.status === 204;
+  } catch (_) { return false; }
+}
+
+// ---- Log sale to GitHub sales-tracker.md (human-readable ledger) ----
+export async function logSaleToGithub(env, sale) {
+  const token = env.GITHUB_PAT;
+  const owner = env.GITHUB_OWNER || 'surisettidev';
+  const repo  = env.GITHUB_REPO  || 'DigitalProductBusiness';
+  if (!token) return false;
+  try {
+    const filePath = 'daily-operations/sales-tracker.md';
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
+    const fileRes = await fetch(apiUrl, {
+      headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'fos-cf-worker' }
+    });
+    if (!fileRes.ok) return false;
+    const file = await fileRes.json();
+    const current = atob(file.content.replace(/\n/g, ''));
+    const line = `| ${sale.date.slice(0, 10)} | ${sale.product} | 1 | ${sale.amount} | ${sale.amount} | razorpay |\n`;
+    const updated = current + line;
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'fos-cf-worker', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Sale: ${sale.product} (razorpay)`, content: btoa(updated), sha: file.sha })
+    });
+    return putRes.ok;
+  } catch (_) { return false; }
+}

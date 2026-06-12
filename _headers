@@ -11,7 +11,11 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store, no-cache
 
+/success.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache
+
 /api/*
-  Access-Control-Allow-Origin: https://your-domain.pages.dev
-  Access-Control-Allow-Methods: POST, OPTIONS
-  Access-Control-Allow-Headers: Content-Type
+  Access-Control-Allow-Origin: https://freelance-os.pages.dev
+  Access-Control-Allow-Methods: POST, GET, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, X-Razorpay-Signature
