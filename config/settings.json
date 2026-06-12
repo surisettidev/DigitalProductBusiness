@@ -11,8 +11,8 @@
   "checkoutProvider": "payhip",
   "newsletterProvider": "brevo",
   "analytics": {
-    "ga4Id": "G-DH0HSN4Z0H",
-    "clarityId": "x5vbk9lkvs"
+    "ga4Id": "G-XXXXXXX",
+    "clarityId": "xxxxxxxxxx"
   },
   "social": {
     "twitter": "",
