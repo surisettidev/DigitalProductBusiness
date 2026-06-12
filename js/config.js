@@ -13,8 +13,8 @@ window.APP_CONFIG = {
   domain: "https://your-domain.pages.dev", // update after Cloudflare Pages deploy
 
   analytics: {
-    ga4Id: "G-XXXXXXX" ,     // G-DH0HSN4Z0H real GA4 ID
-    clarityId: "xxxxxxxxxx"  // "x5vbk9lkvs" real Microsoft Clarity ID
+    ga4Id: "G-DH0HSN4Z0H" ,     // G-DH0HSN4Z0H real GA4 ID
+    clarityId: "x5vbk9lkvs"  // "x5vbk9lkvs" real Microsoft Clarity ID
   },
 
   // Payhip "Buy" links — paste your real ones after creating products in Payhip
