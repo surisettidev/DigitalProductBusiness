@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelancer OS — Practical Digital Products for Indian Freelancers</title>
+  <meta name="description" content="Pricing, client acquisition, AI workflows, tax compliance, and business systems built for Indian freelancers. Practical templates, no fluff." />
+
+  <meta property="og:title" content="Freelancer OS" />
+  <meta property="og:description" content="Practical digital products for Indian freelancers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/og-image.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="logo" data-bind="siteName">Freelancer OS</a>
+    <nav aria-label="Main navigation">
+      <a href="#products">Products</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Build a Smarter Freelancer Business Without Guesswork</h1>
+      <p class="hero-sub">
+        Practical digital products for Indian freelancers: pricing, client acquisition,
+        AI workflows, tax compliance, and business systems. No theory, no fluff.
+      </p>
+
+      <form class="lead-form" id="lead-form" aria-label="Lead magnet signup">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Your email address" />
+        <button type="submit">Get the Free Pricing Calculator</button>
+      </form>
+      <p class="hero-microcopy">Free download. No spam. Unsubscribe anytime.</p>
+
+      <div class="hero-stats">
+        <div><strong>Practical</strong><span>Templates you use today</span></div>
+        <div><strong>India-focused</strong><span>INR, GST, UPI, ONDC</span></div>
+        <div><strong>No fluff</strong><span>Specific actions, not theory</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pain" id="pain-points">
+  <div class="container">
+    <h2>Most freelancers leave money on the table because…</h2>
+    <div class="pain-grid">
+      <article class="pain-card"><h3>They price by the hour</h3><p>Clients treat them like a commodity, not a partner.</p></article>
+      <article class="pain-card"><h3>Their pipeline is random</h3><p>Some months ₹20k, next month ₹2L. No predictability.</p></article>
+      <article class="pain-card"><h3>AI overwhelms them</h3><p>20 new tools every week. Which one for which task?</p></article>
+      <article class="pain-card"><h3>GST and taxes feel scary</h3><p>Avoidance leads to expensive surprises at year-end.</p></article>
+      <article class="pain-card"><h3>No operating system</h3><p>Notes in WhatsApp, invoices in Excel, leads in memory.</p></article>
+      <article class="pain-card"><h3>They scale by working more</h3><p>12-hour days are not a strategy. They're a trap.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="container">
+    <h2>The Product Stack</h2>
+    <p class="section-sub">Buy what you need. Or grab the bundle.</p>
+
+    <div class="products-grid" id="products-grid">
+      <!-- Cards rendered by js/main.js from window.APP_CONFIG.products -->
+    </div>
+
+    <div class="bundle-card" id="bundle-card">
+      <!-- Rendered by main.js -->
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how-it-works">
+  <div class="container">
+    <h2>How it works</h2>
+    <ol class="how-steps">
+      <li><strong>Pick a product.</strong> Pay via Payhip (UPI/cards/wallets supported).</li>
+      <li><strong>Instant delivery.</strong> Download link in your email within seconds.</li>
+      <li><strong>Use it.</strong> Each product is built to be useful in 30 minutes.</li>
+      <li><strong>7-day money-back guarantee.</strong> Reply to the email if it didn't help.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Carbon Ads / AdSense slot — rendered by js/ads.js if configured -->
+<div id="carbon-ad-slot" style="text-align:center;padding:18px 0 0"></div>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <h2>FAQ</h2>
+    <div class="faq-grid">
+      <article class="faq-item"><h3>Will this work for my niche?</h3><p>The frameworks are skill-agnostic — writers, designers, developers, marketers, video editors all use them.</p></article>
+      <article class="faq-item"><h3>How fast is delivery?</h3><p>Instant. Payhip sends the file the moment payment clears.</p></article>
+      <article class="faq-item"><h3>What if it doesn't help me?</h3><p>Email <a href="/cdn-cgi/l/email-protection#097a7c7b607a6c7d7d60276d6c7f496e64686065276a6664"><span class="__cf_email__" data-cfemail="d5a6a0a7bca6b0a1a1bcfbb1b0a395b2b8b4bcb9fbb6bab8">[email&#160;protected]</span></a> within 7 days. Full refund, no questions.</p></article>
+      <article class="faq-item"><h3>Is this tax/legal advice?</h3><p>No. The tax guide is educational. Talk to a CA for personal cases.</p></article>
+      <article class="faq-item"><h3>Do you offer custom work?</h3><p>Not right now. These are self-serve products.</p></article>
+      <article class="faq-item"><h3>How do I contact support?</h3><p><a href="/cdn-cgi/l/email-protection#87f4f2f5eef4e2f3f3eea9e3e2f1c7e0eae6eeeba9e4e8ea"><span class="__cf_email__" data-cfemail="8cfff9fee5ffe9f8f8e5a2e8e9faccebe1ede5e0a2efe3e1">[email&#160;protected]</span></a> — replies within 24 hours on weekdays.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="final-cta">
+  <div class="container">
+    <h2>Pick the one that solves your biggest problem this week.</h2>
+    <a href="#products" class="cta-btn">See Products</a>
+  </div>
+</section>
+
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Freelancer OS</h4>
+        <p>Practical digital products for Indian freelancers.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <a href="products/ai-freelancer.html">AI for Freelancers</a>
+        <a href="products/pricing-guide.html">Pricing Masterclass</a>
+        <a href="products/tax-guide.html">Tax Guide</a>
+        <a href="products/client-gen.html">Client Generation</a>
+        <a href="products/business-os.html">Business OS</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="legal/privacy-policy.html">Privacy Policy</a>
+        <a href="legal/terms-of-service.html">Terms of Service</a>
+        <a href="legal/refund-policy.html">Refund Policy</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="/cdn-cgi/l/email-protection#106365627963756464793e74756650777d71797c3e737f7d"><span class="__cf_email__" data-cfemail="7e0d0b0c170d1b0a0a17501a1b083e19131f1712501d1113">[email&#160;protected]</span></a>
+        <a href="admin.html">Operator Dashboard</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© <span id="year"></span> Freelancer OS · Made for Indian freelancers.</small>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/newsletter.js"></script>
+<script src="js/analytics.js"></script>
+<!-- Ads: non-intrusive contextual sponsorships. Loaded after 3 s, zero blocking. -->
+<script src="js/ads.js"></script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>
