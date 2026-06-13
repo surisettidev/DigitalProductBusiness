@@ -5,324 +5,297 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Freelancer OS — Practical Digital Products for Indian Freelancers</title>
   <meta name="description" content="Pricing, client acquisition, AI workflows, tax compliance, and business systems built for Indian freelancers. Practical templates, no fluff." />
-
   <meta property="og:title" content="Freelancer OS" />
   <meta property="og:description" content="Practical digital products for Indian freelancers." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Freelancer OS" />
   <meta name="twitter:description" content="Practical digital products for Indian freelancers." />
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%237c6dfc'/><text x='16' y='22' text-anchor='middle' font-size='18' fill='white'>&#x26A1;</text></svg>" type="image/svg+xml" />
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%237b5ea7'/><text x='16' y='22' text-anchor='middle' font-size='18' fill='white'>&#x26A1;</text></svg>" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- New Award-Winning Design System -->
-  <link rel="stylesheet" href="css/style-v2.css" />
-
-  <!-- Config (prices + product data - display only, server validates) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-v3.css" />
   <script src="js/config.js"></script>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="nav" id="nav">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo" data-bind="siteName">
-      <span class="logo-icon">⚡</span>
+<nav class="nav" id="nav" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand" aria-label="Freelancer OS home">
+      <span class="nav-logo-mark" aria-hidden="true">⚡</span>
       <span>Freelancer OS</span>
     </a>
-    <div class="nav-links">
+    <div class="nav-desktop" role="navigation" aria-label="Main navigation">
+      <a href="#problems" class="nav-link">Problems</a>
       <a href="#products" class="nav-link">Products</a>
-      <a href="#how" class="nav-link">How it works</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-      <a href="#products" class="nav-cta">Get started →</a>
+      <a href="#how"      class="nav-link">How it works</a>
+      <a href="#faq"      class="nav-link">FAQ</a>
+      <a href="#products" class="nav-cta-pill">Browse products →</a>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile navigation">
+  <div class="nav-mobile-panel" id="navMobilePanel" role="navigation" aria-label="Mobile navigation">
+    <a href="#problems" class="nav-mobile-link">Problems</a>
     <a href="#products" class="nav-mobile-link">Products</a>
-    <a href="#how" class="nav-mobile-link">How it works</a>
-    <a href="#faq" class="nav-mobile-link">FAQ</a>
-    <a href="#products" class="nav-mobile-cta">Get started →</a>
+    <a href="#how"      class="nav-mobile-link">How it works</a>
+    <a href="#faq"      class="nav-mobile-link">FAQ</a>
+    <a href="#products" class="nav-mobile-cta">Browse products →</a>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-container">
-    <div class="hero-badge">
-      <span class="badge-dot" aria-hidden="true"></span>
-      <span>Built for Indian Freelancers</span>
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-fade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-ticker" id="hero-ticker" aria-label="Freelancer problems and solutions">
+      <span class="ticker-dot" aria-hidden="true"></span>
+      <span style="color:var(--txt-3)">Fix:</span>
+      <span class="ticker-word" id="ticker-problem">Undercharging</span>
+      <span class="ticker-sep" aria-hidden="true">→</span>
+      <span class="ticker-fix"  id="ticker-fix">Value Pricing</span>
     </div>
-    <h1 class="hero-title">
-      <span class="hero-line">Build a Smarter</span>
-      <span class="hero-line gradient-text">Freelancer Business</span>
-      <span class="hero-line">Without Guesswork</span>
+    <h1 class="hero-h1" id="hero-h1">
+      Build a Smarter<br/><em>Freelancer Business</em><br/>Without the Guesswork
     </h1>
-    <p class="hero-sub">
-      Practical digital products for Indian freelancers: pricing, client acquisition,
-      AI workflows, tax compliance, and business systems. <strong>No theory. No fluff.</strong>
+    <p class="hero-sub" id="hero-sub">
+      Practical digital products for Indian freelancers — pricing, AI workflows,
+      tax compliance, client systems. <strong>Templates you use today, not theory.</strong>
     </p>
-
-    <form class="lead-form" id="lead-form" aria-label="Get free pricing calculator">
-      <div class="lead-input-wrap">
-        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-        <input type="email" name="email" placeholder="you@example.com" required aria-label="Your email address" />
+    <div class="hero-actions" id="hero-actions">
+      <a href="#products" class="btn-primary">
+        See all products
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+      <a href="#how" class="btn-ghost">How it works</a>
+    </div>
+    <p class="hero-note" id="hero-note">🔒 Instant delivery · Razorpay secure · 7-day money-back</p>
+    <div class="hero-proof" id="hero-proof" role="list">
+      <div class="proof-cell" role="listitem">
+        <span class="proof-num">5<span>+</span></span>
+        <span class="proof-label">Practical<br/>Products</span>
       </div>
-      <button type="submit" class="lead-btn">
-        <span class="btn-text">Get Free Pricing Calculator</span>
-        <span class="btn-arrow" aria-hidden="true">→</span>
-      </button>
-    </form>
-    <p class="hero-microcopy">🔒 Free download · No spam · Unsubscribe anytime</p>
-
-    <div class="hero-stats" role="list">
-      <div class="stat-card" role="listitem">
-        <div class="stat-icon" aria-hidden="true">🎯</div>
-        <strong>Practical</strong>
-        <span>Templates you use today</span>
+      <div class="proof-cell" role="listitem">
+        <span class="proof-num">₹<span>699</span></span>
+        <span class="proof-label">Starts<br/>at</span>
       </div>
-      <div class="stat-card" role="listitem">
-        <div class="stat-icon" aria-hidden="true">🇮🇳</div>
-        <strong>India-focused</strong>
-        <span>INR, GST, UPI, ONDC</span>
-      </div>
-      <div class="stat-card" role="listitem">
-        <div class="stat-icon" aria-hidden="true">⚡</div>
-        <strong>No fluff</strong>
-        <span>Specific actions, not theory</span>
+      <div class="proof-cell" role="listitem">
+        <span class="proof-num">7<span>d</span></span>
+        <span class="proof-label">Money-back<br/>guarantee</span>
       </div>
     </div>
-  </div>
-
-  <div class="scroll-indicator" aria-hidden="true">
-    <div class="scroll-dot"></div>
-    <span>Scroll to explore</span>
   </div>
 </section>
 
-<!-- Trust Strip -->
 <div class="trust-strip" role="complementary" aria-label="Trust indicators">
-  <div class="trust-inner">
-    <div class="trust-item"><span class="trust-icon" aria-hidden="true">🔒</span><span>Secure payments via Razorpay</span></div>
-    <div class="trust-divider" aria-hidden="true"></div>
-    <div class="trust-item"><span class="trust-icon" aria-hidden="true">🇮🇳</span><span>UPI · Cards · Netbanking · Wallets</span></div>
-    <div class="trust-divider" aria-hidden="true"></div>
-    <div class="trust-item"><span class="trust-icon" aria-hidden="true">⚡</span><span>Instant on-screen + email delivery</span></div>
-    <div class="trust-divider" aria-hidden="true"></div>
-    <div class="trust-item"><span class="trust-icon" aria-hidden="true">↩️</span><span>7-day money-back guarantee</span></div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="trust-item"><span class="ti-icon">🔒</span><strong>Razorpay secure payments</strong></span>
+    <span class="trust-item"><span class="ti-icon">🇮🇳</span><strong>UPI · Cards · Netbanking · Wallets</strong></span>
+    <span class="trust-item"><span class="ti-icon">⚡</span><strong>Instant on-screen delivery</strong></span>
+    <span class="trust-item"><span class="ti-icon">📧</span><strong>Email copy sent immediately</strong></span>
+    <span class="trust-item"><span class="ti-icon">↩️</span><strong>7-day money-back guarantee</strong></span>
+    <span class="trust-item"><span class="ti-icon">🎯</span><strong>India-specific frameworks</strong></span>
+    <span class="trust-item"><span class="ti-icon">📜</span><strong>DPDP Act compliant</strong></span>
+    <span class="trust-item"><span class="ti-icon">💼</span><strong>Built for Indian freelancers</strong></span>
+    <span class="trust-item"><span class="ti-icon">🔒</span><strong>Razorpay secure payments</strong></span>
+    <span class="trust-item"><span class="ti-icon">🇮🇳</span><strong>UPI · Cards · Netbanking · Wallets</strong></span>
+    <span class="trust-item"><span class="ti-icon">⚡</span><strong>Instant on-screen delivery</strong></span>
+    <span class="trust-item"><span class="ti-icon">📧</span><strong>Email copy sent immediately</strong></span>
+    <span class="trust-item"><span class="ti-icon">↩️</span><strong>7-day money-back guarantee</strong></span>
+    <span class="trust-item"><span class="ti-icon">🎯</span><strong>India-specific frameworks</strong></span>
+    <span class="trust-item"><span class="ti-icon">📜</span><strong>DPDP Act compliant</strong></span>
+    <span class="trust-item"><span class="ti-icon">💼</span><strong>Built for Indian freelancers</strong></span>
   </div>
 </div>
 
-<!-- Pain Points Section -->
-<section class="pain" id="pain-points">
-  <div class="section-container">
-    <div class="section-header">
-      <span class="section-tag">The Problem</span>
-      <h2 class="section-title">Most freelancers leave money<br/>on the table because…</h2>
+<section class="section" id="problems" aria-labelledby="problems-title">
+  <div class="container">
+    <div data-reveal="fade">
+      <p class="section-eyebrow">The Problem</p>
+      <h2 class="section-title" id="problems-title">Most freelancers leave money<br/>on the table because…</h2>
+      <p class="section-sub">Sound familiar? Every problem below has a fix inside Freelancer OS.</p>
     </div>
-    <div class="pain-grid">
-      <article class="pain-card" data-index="0">
-        <div class="pain-icon" aria-hidden="true">💸</div>
-        <div class="pain-number" aria-hidden="true">01</div>
-        <h3>They price by the hour</h3>
-        <p>Clients treat them like a commodity, not a strategic partner.</p>
+    <div class="problems-grid" data-stagger>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 01</div>
+        <div class="pc-icon">💸</div>
+        <h3 class="pc-title">They price by the hour</h3>
+        <p class="pc-body">Clients treat them like a commodity, not a strategic partner. Revenue caps out.</p>
       </article>
-      <article class="pain-card" data-index="1">
-        <div class="pain-icon" aria-hidden="true">📉</div>
-        <div class="pain-number" aria-hidden="true">02</div>
-        <h3>Their pipeline is random</h3>
-        <p>Some months ₹20k, next month ₹2L. No predictability.</p>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 02</div>
+        <div class="pc-icon">📉</div>
+        <h3 class="pc-title">Their pipeline is random</h3>
+        <p class="pc-body">Some months ₹20k, next month ₹2L. No predictability, no peace of mind.</p>
       </article>
-      <article class="pain-card" data-index="2">
-        <div class="pain-icon" aria-hidden="true">🤯</div>
-        <div class="pain-number" aria-hidden="true">03</div>
-        <h3>AI overwhelms them</h3>
-        <p>20 new tools every week. Which one for which task?</p>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 03</div>
+        <div class="pc-icon">🤯</div>
+        <h3 class="pc-title">AI overwhelms them</h3>
+        <p class="pc-body">20 new tools every week. Which one for which task? Decision paralysis kills time.</p>
       </article>
-      <article class="pain-card" data-index="3">
-        <div class="pain-icon" aria-hidden="true">😰</div>
-        <div class="pain-number" aria-hidden="true">04</div>
-        <h3>GST and taxes feel scary</h3>
-        <p>Avoidance leads to expensive surprises at year-end.</p>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 04</div>
+        <div class="pc-icon">😰</div>
+        <h3 class="pc-title">GST and taxes feel scary</h3>
+        <p class="pc-body">Avoidance leads to expensive CA bills and nasty surprises at year-end.</p>
       </article>
-      <article class="pain-card" data-index="4">
-        <div class="pain-icon" aria-hidden="true">🗂️</div>
-        <div class="pain-number" aria-hidden="true">05</div>
-        <h3>No operating system</h3>
-        <p>Notes in WhatsApp, invoices in Excel, leads in memory.</p>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 05</div>
+        <div class="pc-icon">🗂️</div>
+        <h3 class="pc-title">No operating system</h3>
+        <p class="pc-body">Notes in WhatsApp, invoices in Excel, leads in memory. Chaos kills growth.</p>
       </article>
-      <article class="pain-card" data-index="5">
-        <div class="pain-icon" aria-hidden="true">😤</div>
-        <div class="pain-number" aria-hidden="true">06</div>
-        <h3>They scale by working more</h3>
-        <p>12-hour days are not a strategy. They're a trap.</p>
+      <article class="problem-card">
+        <div class="pc-num">PROBLEM 06</div>
+        <div class="pc-icon">😤</div>
+        <h3 class="pc-title">They scale by working more</h3>
+        <p class="pc-body">12-hour days are not a strategy. They're burnout waiting to happen.</p>
       </article>
-    </div>
-  </div>
-</section>
-
-<!-- Products Section -->
-<section class="products" id="products">
-  <div class="section-container">
-    <div class="section-header">
-      <span class="section-tag">The Solution</span>
-      <h2 class="section-title">The Product Stack</h2>
-      <p class="section-sub">Buy what you need. Or grab the bundle and save ₹1,596.</p>
-    </div>
-
-    <div class="products-grid" id="products-grid">
-      <!-- Rendered by js/main.js + enhanced by js/app-v2.js -->
-    </div>
-
-    <!-- Bundle Card -->
-    <div class="bundle-card" id="bundle-card">
-      <!-- Rendered by main.js -->
     </div>
   </div>
 </section>
 
-<!-- How It Works -->
-<section class="how" id="how">
-  <div class="section-container">
-    <div class="section-header">
-      <span class="section-tag">The Process</span>
-      <h2 class="section-title">How it works</h2>
-      <p class="section-sub">From payment to results in under 30 minutes</p>
+<section class="section" id="products" style="background:var(--ink-1);" aria-labelledby="products-title">
+  <div class="container">
+    <div data-reveal="fade">
+      <p class="section-eyebrow">The Solution</p>
+      <h2 class="section-title" id="products-title">Pick the fix for your biggest problem</h2>
+      <p class="section-sub">Each product is self-contained. Buy the one you need today.</p>
     </div>
-    <div class="steps-container">
-      <div class="steps-line" aria-hidden="true"></div>
-      <div class="step">
-        <div class="step-number" aria-hidden="true">01</div>
-        <div class="step-content">
-          <div class="step-icon" aria-hidden="true">🛒</div>
-          <h3>Pick a product</h3>
-          <p>Pay securely via Razorpay — UPI, cards, netbanking, and wallets. All major payment methods supported.</p>
+    <div class="products-grid" id="products-grid"></div>
+    <div class="bundle-wrap" data-reveal>
+      <div class="bundle-card" id="bundle-card"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section how-section" id="how" aria-labelledby="how-title">
+  <div class="container">
+    <div data-reveal="fade">
+      <p class="section-eyebrow">The Process</p>
+      <h2 class="section-title" id="how-title">From purchase to results in minutes</h2>
+      <p class="section-sub">No waiting, no login, no friction.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step" data-reveal data-delay="1">
+        <div class="step-bubble">🎯</div>
+        <div class="step-body">
+          <div class="step-title">Pick the right product</div>
+          <p class="step-desc">Match your biggest problem to the right solution. One product, one clear outcome.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-number" aria-hidden="true">02</div>
-        <div class="step-content">
-          <div class="step-icon" aria-hidden="true">⚡</div>
-          <h3>Instant delivery, twice</h3>
-          <p>Your download appears on-screen right after payment AND lands in your inbox. Redundant by design.</p>
+      <div class="step" data-reveal data-delay="2">
+        <div class="step-bubble">💳</div>
+        <div class="step-body">
+          <div class="step-title">Pay securely</div>
+          <p class="step-desc">UPI, cards, netbanking, wallets via Razorpay. All Indian payment methods supported.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-number" aria-hidden="true">03</div>
-        <div class="step-content">
-          <div class="step-icon" aria-hidden="true">🚀</div>
-          <h3>Use it today</h3>
-          <p>Each product is built to be useful in 30 minutes. Real templates, real systems, immediate results.</p>
+      <div class="step" data-reveal data-delay="3">
+        <div class="step-bubble">⚡</div>
+        <div class="step-body">
+          <div class="step-title">Get it instantly</div>
+          <p class="step-desc">Download link appears on-screen the moment payment clears. Email copy arrives too.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-number" aria-hidden="true">04</div>
-        <div class="step-content">
-          <div class="step-icon" aria-hidden="true">🛡️</div>
-          <h3>7-day guarantee</h3>
-          <p>Reply to the email if it didn't help. Full refund, no questions, no hassle.</p>
+      <div class="step" data-reveal data-delay="4">
+        <div class="step-bubble">🛡️</div>
+        <div class="step-body">
+          <div class="step-title">7-day guarantee</div>
+          <p class="step-desc">Didn't help? Reply to the email. Full refund, no questions, no hassle.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="faq" id="faq">
-  <div class="section-container">
-    <div class="section-header">
-      <span class="section-tag">FAQ</span>
-      <h2 class="section-title">Everything you need to know</h2>
+<section class="section" style="background:var(--ink-1);" aria-labelledby="lead-title">
+  <div class="container">
+    <div style="max-width:600px;margin:0 auto;text-align:center;" data-reveal>
+      <p class="section-eyebrow">Free Download</p>
+      <h2 class="section-title" id="lead-title" style="font-size:clamp(1.4rem,3.5vw,2.2rem)">Get the Free Freelancer Pricing Calculator</h2>
+      <p class="section-sub" style="margin:12px auto 28px;max-width:420px">Enter your email and we'll send you the calculator that helps Indian freelancers charge 2–3× more — instantly.</p>
+      <form id="lead-form" style="display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto;" aria-label="Free pricing calculator signup">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Your email address" autocomplete="email"
+          style="padding:13px 16px;background:var(--ink-0);border:1px solid rgba(123,94,167,0.25);border-radius:12px;font-size:0.95rem;color:var(--txt-1);outline:none;font-family:inherit;transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='rgba(123,94,167,0.25)'" />
+        <button type="submit" class="btn-primary" style="justify-content:center;width:100%;">Send me the calculator →</button>
+      </form>
+      <p style="font-size:0.72rem;color:var(--txt-3);margin-top:10px;">🔒 No spam · Your email is only used for delivery · Unsubscribe anytime</p>
     </div>
-    <div class="faq-grid" role="list">
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>Will this work for my niche?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">The frameworks are skill-agnostic — writers, designers, developers, marketers, video editors all use them successfully.</div>
+  </div>
+</section>
+
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div data-reveal="fade">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title" id="faq-title">Everything you need to know</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" data-reveal data-delay="1">
+        <summary class="faq-q"><span>Will this work for my niche?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">The frameworks are skill-agnostic — writers, designers, developers, marketers, video editors all use them. The principles apply to any knowledge-based freelance work.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>How fast is delivery?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">Instant. The moment your Razorpay payment clears, the download link appears on-screen and a copy is emailed to you.</div>
+      <details class="faq-item" data-reveal data-delay="2">
+        <summary class="faq-q"><span>How fast is delivery?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">Instant. The moment your Razorpay payment clears, the download link appears on-screen and a copy lands in your inbox. No waiting.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>What if it doesn't help me?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">Email <a href="mailto:surisetti.dev@gmail.com">surisetti.dev@gmail.com</a> within 7 days. Full refund, no questions asked.</div>
+      <details class="faq-item" data-reveal data-delay="3">
+        <summary class="faq-q"><span>What if it doesn't help me?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">Email <a href="mailto:surisetti.dev@gmail.com">surisetti.dev@gmail.com</a> within 7 days. Full refund, no questions asked. No forms, no interrogation.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>Which payment methods work?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">UPI (GPay, PhonePe, Paytm), credit/debit cards, netbanking, and wallets — all via Razorpay's secure checkout.</div>
+      <details class="faq-item" data-reveal data-delay="4">
+        <summary class="faq-q"><span>Which payment methods work?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">UPI (GPay, PhonePe, Paytm), credit/debit cards (Visa, Mastercard, RuPay), netbanking, and wallets — all via Razorpay's secure checkout.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>Is this tax/legal advice?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">No. The tax guide is educational. Talk to a CA for your personal tax situation and specific advice.</div>
+      <details class="faq-item" data-reveal data-delay="5">
+        <summary class="faq-q"><span>Is this tax or legal advice?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">No. The tax guide is educational. Talk to a CA for your personal situation. We explain concepts so you walk in prepared.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>Do you offer custom work?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer">Not right now. These are self-serve products built to deliver value without hand-holding.</div>
+      <details class="faq-item" data-reveal data-delay="6">
+        <summary class="faq-q"><span>Do you offer custom work?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">Not right now. These are self-serve products built to deliver value without hand-holding. Email if you have questions about fit.</div>
       </details>
-      <details class="faq-item" role="listitem">
-        <summary class="faq-question">
-          <span>How do I contact support?</span>
-          <span class="faq-chevron" aria-hidden="true">+</span>
-        </summary>
-        <div class="faq-answer"><a href="mailto:surisetti.dev@gmail.com">surisetti.dev@gmail.com</a> — replies within 24 hours on weekdays.</div>
+      <details class="faq-item" data-reveal data-delay="1">
+        <summary class="faq-q"><span>How do I contact support?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a"><a href="mailto:surisetti.dev@gmail.com">surisetti.dev@gmail.com</a> — replies within 24 hours on weekdays. We actually respond.</div>
+      </details>
+      <details class="faq-item" data-reveal data-delay="2">
+        <summary class="faq-q"><span>Can I buy multiple products?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-a">Yes — or grab the Complete Bundle (all 5 products) and save ₹1,596 vs buying individually. Each product also works standalone.</div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- Final CTA -->
-<section class="final-cta" id="final-cta">
-  <canvas id="cta-canvas" aria-hidden="true"></canvas>
-  <div class="cta-overlay" aria-hidden="true"></div>
-  <div class="cta-content">
-    <span class="section-tag">Take Action</span>
-    <h2>Pick the one that solves your<br/>biggest problem <em>this week.</em></h2>
-    <p>Join hundreds of Indian freelancers who've already transformed their businesses.</p>
-    <div class="cta-actions">
-      <a href="#products" class="cta-primary">See All Products →</a>
-      <a href="mailto:surisetti.dev@gmail.com" class="cta-secondary">Ask a question</a>
+<section class="section cta-section" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="cta-inner" data-reveal>
+      <p class="section-eyebrow" style="margin-bottom:14px;">Take Action</p>
+      <h2 class="cta-title" id="cta-title">Pick the one that solves<br/>your biggest problem <em>this week.</em></h2>
+      <p class="cta-sub">Join Indian freelancers who've stopped guessing and started building real, predictable businesses.</p>
+      <div class="cta-actions">
+        <a href="#products" class="btn-primary">See all products →</a>
+        <a href="mailto:surisetti.dev@gmail.com" class="btn-ghost">Ask a question</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer" id="contact">
-  <div class="footer-container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo footer-logo">
-          <span class="logo-icon">⚡</span>
+<footer class="footer" id="contact" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="nav-brand" aria-label="Freelancer OS home">
+          <span class="nav-logo-mark" aria-hidden="true">⚡</span>
           <span>Freelancer OS</span>
         </a>
-        <p>Practical digital products for Indian freelancers. Built with ❤️ for the Indian creator economy.</p>
-        <a href="mailto:surisetti.dev@gmail.com" class="footer-email">surisetti.dev@gmail.com</a>
+        <p class="footer-brand-desc">Practical digital products for Indian freelancers. Built for the Indian creator economy.</p>
+        <a href="mailto:surisetti.dev@gmail.com" class="footer-email-link">surisetti.dev@gmail.com</a>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
@@ -340,6 +313,7 @@
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
+        <a href="#problems">Problems</a>
         <a href="#products">Products</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
@@ -348,58 +322,22 @@
     </div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> Freelancer OS · Made for Indian freelancers</span>
-      <span class="footer-tagline">🇮🇳 Empowering India's creator economy</span>
+      <span>🇮🇳 Empowering India's creator economy</span>
     </div>
   </div>
 </footer>
 
-<!-- Email capture modal (pre-checkout) -->
-<div id="fos-email-modal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal-box">
-    <button class="modal-close" id="fosModalClose" aria-label="Close modal">✕</button>
-    <div class="modal-icon" aria-hidden="true">📧</div>
-    <h3 id="modal-title">Where should we send your download?</h3>
-    <p>We'll send your purchase to this email instantly after payment.</p>
-    <form id="fos-email-form" novalidate>
-      <input type="hidden" id="fos-slug" />
-      <input type="hidden" id="fos-price" />
-      <input type="hidden" id="fos-name" />
-      <input type="email" id="fos-email-input" placeholder="you@example.com" required aria-label="Your email address" autocomplete="email" />
-      <button type="submit" class="modal-submit" id="fosModalSubmit">Continue to Payment →</button>
-    </form>
-    <p class="modal-note">🔒 Your email is only used for product delivery. No spam.</p>
-  </div>
-</div>
-
-<!-- Toast notification -->
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<!-- ============================================================
-     Scripts — existing backend wiring + new UI layer
-     ============================================================ -->
-<script src="js/config.js"></script>
-
-<!-- Three.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<!-- GSAP + plugins -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-
-<!-- Product rendering (uses APP_CONFIG from config.js) -->
-<script src="js/main-v2.js"></script>
-
-<!-- New award-winning UI/UX layer -->
-<script src="js/app-v2.js"></script>
-
-<!-- Razorpay checkout (uses existing backend /api/create-order etc.) -->
-<script src="js/checkout.js"></script>
-
-<!-- Newsletter signup -->
-<script src="js/newsletter.js"></script>
-
-<!-- Analytics (GA4 + Clarity) -->
-<script src="js/analytics.js"></script>
+<!-- GSAP only — NO Three.js (saves ~600KB, critical for Indian mobile) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
+<script src="js/main-v3.js" defer></script>
+<script src="js/app-v3.js" defer></script>
+<script src="js/checkout.js" defer></script>
+<script src="js/newsletter.js" defer></script>
+<script src="js/analytics.js" defer></script>
 
 </body>
 </html>
