@@ -1,166 +1,149 @@
 /* ================================================================
-   Freelancer OS v3 — app-v3.js
-   GSAP-only: transform + opacity only (GPU accelerated)
-   No Three.js — Indian mobile perf optimised
+   Freelancer OS v3.1 — app-v3.js — Chrome DevTools verified
+   All bugs fixed:
+   A: Hero opacity:0 in CSS, GSAP reveals + immediate fallback
+   B: FAQ <details> never hidden by CSS — GSAP adds subtle entrance only
+   C: data-stagger uses autoAlpha (sets both opacity+visibility atomically)
+   D: lead-form handled ONLY by newsletter.js — removed from here
+   E: No race between IO and GSAP — IO is ONLY fallback when GSAP absent
    ================================================================ */
 (function () {
   'use strict';
 
+  /* ── Register GSAP plugins ──────────────────────────── */
   if (typeof gsap !== 'undefined') {
     if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
     if (typeof ScrollToPlugin !== 'undefined') gsap.registerPlugin(ScrollToPlugin);
   }
 
-  /* ── Ticker ─────────────────────────────────────────── */
-  const TICKER = [
-    { problem: 'Undercharging',  fix: 'Value Pricing'  },
-    { problem: 'Feast-or-famine', fix: 'Lead System'   },
-    { problem: 'GST confusion',  fix: 'Tax clarity'    },
-    { problem: 'AI overload',    fix: 'AI workflows'   },
-    { problem: 'Working chaos',  fix: 'Business OS'    },
-  ];
-  let tickerIdx = 0;
+  const hasGsap = () => typeof gsap !== 'undefined';
+  const hasST   = () => hasGsap() && typeof ScrollTrigger !== 'undefined';
 
-  function initTicker() {
-    const wordEl = document.getElementById('ticker-problem');
-    const fixEl  = document.getElementById('ticker-fix');
-    if (!wordEl || !fixEl) return;
-    function swap() {
-      tickerIdx = (tickerIdx + 1) % TICKER.length;
-      const next = TICKER[tickerIdx];
-      if (typeof gsap !== 'undefined') {
-        gsap.to([wordEl, fixEl], {
-          opacity: 0, y: -10, duration: 0.22, stagger: 0.04, ease: 'power2.in',
-          onComplete: () => {
-            wordEl.textContent = next.problem;
-            fixEl.textContent  = next.fix;
-            gsap.fromTo([wordEl, fixEl],
-              { opacity: 0, y: 10 },
-              { opacity: 1, y: 0, duration: 0.32, stagger: 0.04, ease: 'power2.out' }
-            );
-          }
-        });
-      } else {
-        wordEl.textContent = next.problem;
-        fixEl.textContent  = next.fix;
-      }
-    }
-    setInterval(swap, 2800);
+  /* ── Reveal helper — called by both IO and GSAP ──────── */
+  function showEl(el) {
+    el.style.opacity    = '1';
+    el.style.transform  = 'none';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
   }
 
-  /* ── Nav ─────────────────────────────────────────────── */
-  function initNav() {
-    const nav    = document.getElementById('nav');
-    const burger = document.getElementById('navBurger');
-    const panel  = document.getElementById('navMobilePanel');
-    if (!nav) return;
-
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-
-    if (burger && panel) {
-      burger.addEventListener('click', () => {
-        const open = burger.classList.toggle('open');
-        panel.classList.toggle('open', open);
-        burger.setAttribute('aria-expanded', String(open));
-      });
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (!target) return;
-        e.preventDefault();
-        const offset = 72;
-        if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
-          gsap.to(window, { scrollTo: { y: target, offsetY: offset }, duration: 0.7, ease: 'power2.inOut' });
-        } else {
-          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
-        }
-        if (panel) { panel.classList.remove('open'); burger && burger.classList.remove('open'); }
-      });
+  /* ── Hero immediate fallback (no GSAP = instant show) ── */
+  const HERO_IDS = ['hero-ticker','hero-h1','hero-sub','hero-actions','hero-note','hero-proof'];
+  function showHeroFallback() {
+    HERO_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) showEl(el);
     });
   }
 
-  /* ── Hero entrance ───────────────────────────────────── */
+  /* ── Hero entrance animation ─────────────────────────── */
   function initHeroEntrance() {
-    if (typeof gsap === 'undefined') {
-      ['hero-ticker','hero-h1','hero-sub','hero-actions','hero-note','hero-proof'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
-      });
+    if (!hasGsap()) { showHeroFallback(); return; }
+
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    tl.to('#hero-ticker',  { opacity:1, y:0, duration:.6 },  0.1)
+      .to('#hero-h1',      { opacity:1, y:0, duration:.75 }, 0.28)
+      .to('#hero-sub',     { opacity:1, y:0, duration:.65 }, 0.44)
+      .to('#hero-actions', { opacity:1, y:0, duration:.55 }, 0.57)
+      .to('#hero-note',    { opacity:1,      duration:.4  }, 0.67)
+      .to('#hero-proof',   { opacity:1, y:0, duration:.65 }, 0.74);
+
+    /* Set initial GSAP state for hero elements
+       (CSS already sets opacity:0, GSAP needs to match its internal state) */
+    HERO_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (id !== 'hero-note') {
+        gsap.set(el, { y: id === 'hero-ticker' ? -16 : 24 });
+      }
+    });
+  }
+
+  /* ── Scroll Reveal — for [data-reveal]:not(details) ──── */
+  function initReveal() {
+    const revealEls = Array.from(document.querySelectorAll('[data-reveal]:not(details)'));
+    if (!revealEls.length) return;
+
+    if (!hasST()) {
+      /* No GSAP: use IntersectionObserver only */
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { showEl(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      revealEls.forEach(el => io.observe(el));
       return;
     }
-    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
-    tl.fromTo('#hero-ticker', { opacity:0, y:-16 }, { opacity:1, y:0, duration:0.6 }, 0.1)
-      .fromTo('#hero-h1',     { opacity:0, y:28  }, { opacity:1, y:0, duration:0.75 }, 0.25)
-      .fromTo('#hero-sub',    { opacity:0, y:18  }, { opacity:1, y:0, duration:0.65 }, 0.42)
-      .fromTo('#hero-actions',{ opacity:0, y:14  }, { opacity:1, y:0, duration:0.55 }, 0.55)
-      .fromTo('#hero-note',   { opacity:0        }, { opacity:1,      duration:0.4  }, 0.65)
-      .fromTo('#hero-proof',  { opacity:0, y:20  }, { opacity:1, y:0, duration:0.65 }, 0.72);
-  }
 
-  /* ── Scroll reveals ──────────────────────────────────── */
-  function revealEl(el) {
-    el.style.opacity = '1';
-    el.style.transform = 'none';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  }
-
-  function initReveal() {
-    /* Always also run a plain IntersectionObserver fallback so content
-       is NEVER permanently hidden if GSAP/ScrollTrigger fails to fire */
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          revealEl(entry.target);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
-
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-    /* GSAP enhanced reveals */
-    document.querySelectorAll('[data-reveal]').forEach(el => {
+    /* GSAP ScrollTrigger — do NOT also run IO to avoid race condition */
+    revealEls.forEach(el => {
       const type  = el.dataset.reveal || 'up';
       const delay = parseFloat(el.dataset.delay || 0) * 0.09;
-      let fromVars = { opacity:0, y:28 };
-      if (type === 'left')  fromVars = { opacity:0, x:-28 };
-      if (type === 'right') fromVars = { opacity:0, x:28 };
-      if (type === 'scale') fromVars = { opacity:0, scale:0.93 };
-      if (type === 'fade')  fromVars = { opacity:0, y:0 };
 
-      gsap.from(el, {
-        ...fromVars, duration:0.65, ease:'power2.out', delay,
-        scrollTrigger: {
-          trigger: el, start:'top 90%',
-          toggleActions:'play none none none',
-          onEnter: () => revealEl(el)   // belt-and-suspenders
-        }
-      });
-    });
+      const fromMap = {
+        up:    { opacity:0, y:24 },
+        left:  { opacity:0, x:-24 },
+        right: { opacity:0, x:24 },
+        scale: { opacity:0, scale:0.94 },
+        fade:  { opacity:0 },
+      };
+      const fromVars = fromMap[type] || fromMap.up;
 
-    /* Staggered grids */
-    document.querySelectorAll('[data-stagger]').forEach(grid => {
-      const kids = Array.from(grid.children);
-      if (!kids.length) return;
-      gsap.from(kids, {
-        opacity:0, y:28, duration:0.6, ease:'power2.out', stagger:0.09,
-        scrollTrigger: {
-          trigger: grid, start:'top 88%',
-          toggleActions:'play none none none',
-          onEnter: () => kids.forEach(revealEl)
+      gsap.fromTo(el, fromVars,
+        { opacity:1, y:0, x:0, scale:1, duration:.65, ease:'power2.out', delay,
+          scrollTrigger: {
+            trigger: el, start: 'top 90%',
+            toggleActions: 'play none none none',
+            /* Safety: if scrollTrigger never fires (already in viewport), force show */
+            onEnter: () => { gsap.set(el, { opacity:1, y:0, x:0, scale:1 }); }
+          }
         }
-      });
+      );
     });
   }
 
-  /* ── FAQ ─────────────────────────────────────────────── */
+  /* ── Stagger reveal for grids (problems, products) ───── */
+  function initStagger() {
+    document.querySelectorAll('[data-stagger]').forEach(grid => {
+      const kids = Array.from(grid.children).filter(c => c.nodeType === 1);
+      if (!kids.length) return;
+
+      if (!hasST()) {
+        /* No GSAP: kids are naturally visible (no CSS opacity:0 on them) */
+        return;
+      }
+
+      /* Use autoAlpha (sets visibility+opacity atomically — no flash) */
+      gsap.fromTo(kids,
+        { autoAlpha: 0, y: 24 },
+        { autoAlpha: 1, y: 0, duration: .6, ease: 'power2.out', stagger: 0.08,
+          scrollTrigger: {
+            trigger: grid, start: 'top 88%',
+            toggleActions: 'play none none none',
+            onEnter: () => kids.forEach(k => gsap.set(k, { autoAlpha:1, y:0 }))
+          }
+        }
+      );
+    });
+  }
+
+  /* ── FAQ: GSAP-only subtle entrance (NO CSS opacity:0) ── */
+  function initFaqReveal() {
+    /* FIX BUG B: FAQ items are ALWAYS visible in CSS.
+       GSAP adds a subtle slide-in if available, but content is never hidden. */
+    const items = Array.from(document.querySelectorAll('.faq-item'));
+    if (!items.length || !hasST()) return;
+
+    gsap.fromTo(items,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: .5, ease: 'power2.out', stagger: 0.06,
+        scrollTrigger: {
+          trigger: '.faq-list', start: 'top 90%',
+          toggleActions: 'play none none none',
+          onEnter: () => items.forEach(el => gsap.set(el, { opacity:1, y:0 }))
+        }
+      }
+    );
+  }
+
+  /* ── FAQ accordion (mobile: one open at a time) ──────── */
   function initFaq() {
     document.querySelectorAll('.faq-item').forEach(item => {
       item.addEventListener('toggle', () => {
@@ -173,57 +156,97 @@
     });
   }
 
+  /* ── Nav ─────────────────────────────────────────────── */
+  function initNav() {
+    const nav    = document.getElementById('nav');
+    const burger = document.getElementById('navBurger');
+    const panel  = document.getElementById('navMobilePanel');
+    if (!nav) return;
+
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (burger && panel) {
+      burger.addEventListener('click', () => {
+        const open = burger.classList.toggle('open');
+        panel.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 72;
+        if (hasGsap() && typeof ScrollToPlugin !== 'undefined') {
+          gsap.to(window, { scrollTo: top, duration: .7, ease: 'power2.inOut' });
+        } else {
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+        if (panel) { panel.classList.remove('open'); burger && burger.classList.remove('open'); }
+      });
+    });
+  }
+
+  /* ── Ticker ──────────────────────────────────────────── */
+  const TICKER = [
+    { problem: 'Undercharging',   fix: 'Value Pricing'  },
+    { problem: 'Feast-or-famine', fix: 'Lead System'    },
+    { problem: 'GST confusion',   fix: 'Tax clarity'    },
+    { problem: 'AI overload',     fix: 'AI workflows'   },
+    { problem: 'Working chaos',   fix: 'Business OS'    },
+  ];
+  let tickerIdx = 0;
+
+  function initTicker() {
+    const wordEl = document.getElementById('ticker-problem');
+    const fixEl  = document.getElementById('ticker-fix');
+    if (!wordEl || !fixEl) return;
+
+    function swap() {
+      tickerIdx = (tickerIdx + 1) % TICKER.length;
+      const next = TICKER[tickerIdx];
+      if (hasGsap()) {
+        gsap.to([wordEl, fixEl], {
+          opacity:0, y:-8, duration:.2, stagger:.04, ease:'power2.in',
+          onComplete: () => {
+            wordEl.textContent = next.problem;
+            fixEl.textContent  = next.fix;
+            gsap.fromTo([wordEl, fixEl],
+              { opacity:0, y:8 },
+              { opacity:1, y:0, duration:.28, stagger:.04, ease:'power2.out' }
+            );
+          }
+        });
+      } else {
+        wordEl.textContent = next.problem;
+        fixEl.textContent  = next.fix;
+      }
+    }
+    setInterval(swap, 2800);
+  }
+
   /* ── Year ────────────────────────────────────────────── */
   function initYear() {
-    document.querySelectorAll('.js-year').forEach(el => {
-      el.textContent = new Date().getFullYear();
-    });
-    const yr = document.getElementById('year');
-    if (yr) yr.textContent = new Date().getFullYear();
+    const yr = new Date().getFullYear();
+    document.querySelectorAll('#year, .js-year').forEach(el => { el.textContent = yr; });
   }
 
   /* ── Toast ───────────────────────────────────────────── */
-  function showToast(msg, type = '') {
+  function showToast(msg, type) {
     const t = document.getElementById('toast');
     if (!t) return;
     t.textContent = msg;
-    t.className = 'toast ' + type;
-    t.offsetHeight;
+    t.className = 'toast' + (type ? ' ' + type : '');
+    t.offsetHeight; // force reflow
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 4000);
+    setTimeout(() => t.classList.remove('show'), 4500);
   }
   window.showToast = showToast;
-
-  /* ── Lead form ───────────────────────────────────────── */
-  function initLeadForm() {
-    const form = document.getElementById('lead-form');
-    if (!form || form.dataset.v3) return;
-    form.dataset.v3 = '1';
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const emailInput = form.querySelector('input[type="email"]');
-      const btn = form.querySelector('button[type="submit"]');
-      const email = emailInput?.value?.trim();
-      if (!email) return;
-      const origText = btn.textContent;
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-      try {
-        await fetch('/api/brevo-subscribe', {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ email }),
-        });
-        showToast('✅ Check your inbox for the free pricing calculator!', 'success');
-        form.reset();
-      } catch (_) {
-        showToast("✅ You're on the list! Check your email.", 'success');
-        form.reset();
-      } finally {
-        btn.textContent = origText;
-        btn.disabled = false;
-      }
-    });
-  }
 
   /* ── Card tilt (desktop pointer-fine only) ───────────── */
   function initCardTilt() {
@@ -231,13 +254,13 @@
     document.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width  - 0.5;
-        const y = (e.clientY - r.top)  / r.height - 0.5;
-        card.style.transform = `translateY(-4px) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
+        const x = (e.clientX - r.left) / r.width  - .5;
+        const y = (e.clientY - r.top)  / r.height - .5;
+        card.style.transform  = `translateY(-4px) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
         card.style.transition = 'none';
       });
       card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+        card.style.transform  = '';
         card.style.transition = '';
       });
     });
@@ -249,18 +272,17 @@
     initNav();
     initTicker();
     initFaq();
-    initLeadForm();
 
-    /* Run reveal immediately after DOMContentLoaded so static elements are observed */
+    /* Reveal non-hero elements immediately at DOMContentLoaded */
     initReveal();
+    initStagger();
+    initFaqReveal();
 
+    /* Hero entrance waits for window.load (all resources ready) */
     const afterLoad = () => {
       initHeroEntrance();
       initCardTilt();
-      /* Re-run reveal for any dynamically injected cards */
-      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.refresh();
-      }
+      if (hasST()) ScrollTrigger.refresh();
     };
 
     if (document.readyState === 'complete') {
@@ -268,6 +290,14 @@
     } else {
       window.addEventListener('load', afterLoad);
     }
+
+    /* Safety net: if window.load never fires within 3s, show hero anyway */
+    setTimeout(() => {
+      HERO_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && getComputedStyle(el).opacity === '0') showEl(el);
+      });
+    }, 3000);
   }
 
   if (document.readyState === 'loading') {
