@@ -1,71 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Generation &amp; Lead System — ₹1,299 | Freelancer OS</title>
-  <meta name="description" content="Cold email sequences, lead tracker with auto-formulas, discovery call script and proposal-to-close playbook. Build a predictable client pipeline.">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Generation & Lead System for Freelancers — ₹1,299 | Freelancer OS</title>
+  <meta name="description" content="Build a predictable freelance client pipeline. Cold outreach sequences, lead tracker, discovery call script, and proposal-to-close playbook. ₹1,299, instant download." />
+  <link rel="canonical" href="https://freelance-os.pages.dev/products/client-gen.html" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://freelance-os.pages.dev/products/client-gen.html" />
+  <meta property="og:title" content="Client Generation System — ₹1,299 | Freelancer OS" />
+  <meta property="og:description" content="Stop feast-or-famine. Build a predictable direct-client pipeline with cold outreach sequences, a lead tracker, and a discovery call script." />
+  <meta property="og:locale" content="en_IN" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Freelancer OS", "item": "https://freelance-os.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://freelance-os.pages.dev/#products" },
+          { "@type": "ListItem", "position": 3, "name": "Client Generation System", "item": "https://freelance-os.pages.dev/products/client-gen.html" }
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Client Generation & Lead System",
+        "description": "Cold email and LinkedIn outreach sequences, a lead tracker spreadsheet, discovery call script, and proposal-to-close playbook for Indian freelancers who want a predictable client pipeline.",
+        "url": "https://freelance-os.pages.dev/products/client-gen.html",
+        "brand": { "@type": "Brand", "name": "Freelancer OS" },
+        "offers": { "@type": "Offer", "price": "1299", "priceCurrency": "INR", "availability": "https://schema.org/InStock" }
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style-v3.css" />
   <script src="../js/config.js"></script>
+  <style>
+    .prod-hero{padding:120px 0 70px;background:var(--ink-0);position:relative;overflow:hidden}
+    .prod-hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(123,94,167,0.13) 0%,transparent 65%);pointer-events:none}
+    .prod-inner{max-width:760px}
+    .prod-breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--txt-3);margin-bottom:24px;flex-wrap:wrap}
+    .prod-breadcrumb a{color:var(--txt-3);transition:color .2s}.prod-breadcrumb a:hover{color:var(--violet-l)}
+    .prod-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(123,94,167,.14);border:1px solid rgba(123,94,167,.28);border-radius:100px;padding:4px 12px;font-size:.72rem;font-weight:700;color:var(--violet-l);letter-spacing:.05em;text-transform:uppercase;margin-bottom:18px}
+    .prod-h1{font-family:var(--display);font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:800;color:var(--txt-1);line-height:1.1;letter-spacing:-.03em;margin-bottom:18px}
+    .prod-tagline{font-size:clamp(1rem,2.2vw,1.2rem);color:var(--txt-2);line-height:1.65;margin-bottom:32px;max-width:600px}
+    .prod-tagline strong{color:var(--txt-1)}
+    .prod-cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+    .prod-price{font-family:var(--display);font-size:2rem;font-weight:900;color:var(--txt-1)}
+    .prod-guarantee{font-size:.78rem;color:var(--txt-3)}
+    .inside-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:40px}
+    @media(min-width:640px){.inside-grid{grid-template-columns:1fr 1fr}}
+    .inside-card{background:var(--ink-0);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 20px}
+    .inside-icon{font-size:1.6rem;margin-bottom:10px}
+    .inside-title{font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--txt-1);margin-bottom:6px}
+    .inside-desc{font-size:.82rem;color:var(--txt-2);line-height:1.6}
+    .for-checks{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+    .for-check{display:flex;align-items:flex-start;gap:12px;font-size:.9rem;color:var(--txt-2);line-height:1.55}
+    .for-tick{width:20px;height:20px;background:rgba(34,197,94,.12);border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:var(--emerald);font-size:.65rem;font-weight:900;margin-top:2px}
+    .cta-box{background:linear-gradient(145deg,var(--ink-2),rgba(123,94,167,.07));border:1px solid rgba(123,94,167,.28);border-radius:var(--r-xl);padding:36px 28px;text-align:center}
+    .cta-box-title{font-family:var(--display);font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:var(--txt-1);margin-bottom:8px}
+    .cta-box-sub{font-size:.9rem;color:var(--txt-2);margin-bottom:24px;line-height:1.6}
+    .cta-box-price{font-family:var(--display);font-size:2.4rem;font-weight:900;color:var(--txt-1);display:block;margin-bottom:20px}
+  </style>
 </head>
 <body>
-
-<header class="navbar">
-  <div class="container">
-    <a href="../index.html" class="logo">Freelancer OS</a>
-    <nav><a href="../index.html#products">All Products</a><a href="../index.html#faq">FAQ</a></nav>
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../" class="nav-brand" aria-label="Freelancer OS home"><span class="nav-logo-mark" aria-hidden="true">⚡</span><span>Freelancer OS</span></a>
+    <div class="nav-desktop">
+      <a href="../#products" class="nav-link">All Products</a>
+      <a href="../#faq" class="nav-link">FAQ</a>
+      <a href="../#products" class="nav-cta-pill">Browse products →</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-</header>
-
-<section class="product-hero" id="product-top">
-  <div class="container">
-    <h1>Client Generation &amp; Lead System</h1>
-    <p>Some months ₹20k, next month ₹2L? Feast-or-famine isn't a pricing problem — it's a pipeline problem. Build a predictable one.</p>
-    <div class="price-line">₹1,299</div>
-    <button class="buy-btn" data-slug="client-gen">Buy now — instant delivery →</button>
-    <p class="guarantee">7-day money-back guarantee · Secure Razorpay checkout · UPI, cards, netbanking &amp; wallets</p>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="../#products" class="nav-mobile-link">All Products</a>
+    <a href="../#faq" class="nav-mobile-link">FAQ</a>
+    <a href="../#products" class="nav-mobile-cta">Browse products →</a>
   </div>
-</section>
+</nav>
 
-<section class="contents-section" id="whats-inside">
+<section class="prod-hero" aria-labelledby="prod-h1">
   <div class="container">
-    <h2>What's inside</h2>
-    <ul class="contents-list">
-      <li><strong>Cold email sequences:</strong> Upwork-killers and LinkedIn cold-outreach scripts</li>
-      <li><strong>Lead tracker (Google Sheet)</strong> with auto-formulas — know your pipeline at a glance</li>
-      <li><strong>Discovery call script:</strong> qualify clients and surface budget without awkwardness</li>
-      <li><strong>Proposal-to-close playbook:</strong> from first reply to signed deal</li>
-    </ul>
-  </div>
-</section>
-
-<section class="who-section" id="who-for">
-  <div class="container">
-    <h2>Who this is for</h2>
-    <p>Freelancers tired of marketplace race-to-the-bottom pricing who want direct clients — without spending all day "networking".</p>
-  </div>
-</section>
-
-<section class="cta-section">
-  <div class="container">
-    <h2>Get the system</h2>
-    <div style="font-size:1.8rem;font-weight:800;color:var(--brand);margin:10px 0;">₹1,299</div>
-    <button class="buy-btn" data-slug="client-gen" style="display:inline-block;background:var(--brand);color:#fff;padding:14px 34px;border-radius:8px;font-weight:700;font-size:1.05rem;border:0;cursor:pointer;">Buy now →</button>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <small>© <span id="year"></span> Freelancer OS · <a href="../legal/refund-policy.html" style="display:inline">Refund Policy</a> · <a href="mailto:surisetti.dev@gmail.com">surisetti.dev@gmail.com</a></small>
+    <div class="prod-inner">
+      <nav class="prod-breadcrumb" aria-label="Breadcrumb">
+        <a href="../">Freelancer OS</a><span aria-hidden="true">›</span>
+        <a href="../#products">Products</a><span aria-hidden="true">›</span>
+        <span aria-current="page">Client Generation System</span>
+      </nav>
+      <div class="prod-badge">🎯 Fix the pipeline</div>
+      <h1 class="prod-h1" id="prod-h1">Client Generation &amp; Lead System</h1>
+      <p class="prod-tagline">
+        ₹20k one month, ₹2L the next isn't a talent problem — it's a pipeline problem. <strong>Feast-or-famine happens when you only look for clients when you're out of work.</strong> This system teaches you to fill your pipeline before it runs dry.
+      </p>
+      <div class="prod-cta-row">
+        <span class="prod-price">₹1,299</span>
+        <button class="btn-primary buy-btn" data-slug="client-gen">Buy now — instant delivery →</button>
+      </div>
+      <p class="prod-guarantee">🔒 7-day money-back guarantee · Razorpay secure · UPI, cards, netbanking &amp; wallets</p>
     </div>
   </div>
-</footer>
+</section>
 
-<script src="../js/main.js"></script>
-<script src="../js/checkout.js"></script>
-<script src="../js/analytics.js"></script>
+<section class="section" style="background:var(--ink-1);" id="whats-inside" aria-labelledby="inside-title">
+  <div class="container">
+    <div data-reveal="fade">
+      <p class="section-eyebrow">What's inside</p>
+      <h2 class="section-title" id="inside-title">Your complete client pipeline system</h2>
+      <p class="section-sub">Cold outreach sequences + lead tracker + call script + close playbook. Everything from first contact to signed deal.</p>
+    </div>
+    <div class="inside-grid" data-stagger>
+      <div class="inside-card">
+        <div class="inside-icon">📧</div>
+        <div class="inside-title">Cold email sequences</div>
+        <p class="inside-desc">4-email Upwork-alternative sequences and LinkedIn cold outreach scripts that get replies — without being spammy or desperate.</p>
+      </div>
+      <div class="inside-card">
+        <div class="inside-icon">📊</div>
+        <div class="inside-title">Lead tracker (Google Sheet)</div>
+        <p class="inside-desc">Auto-formulas track pipeline stage, follow-up dates, and conversion rates. Know your pipeline health at a glance, every day.</p>
+      </div>
+      <div class="inside-card">
+        <div class="inside-icon">📞</div>
+        <div class="inside-title">Discovery call script</div>
+        <p class="inside-desc">Qualify the client, surface their real budget, and establish your value — all before you write a single word of a proposal.</p>
+      </div>
+      <div class="inside-card">
+        <div class="inside-icon">🤝</div>
+        <div class="inside-title">Proposal-to-close playbook</div>
+        <p class="inside-desc">From first reply to signed deal. What to send, when to follow up, how to handle "we'll think about it" — all scripted.</p>
+      </div>
+      <div class="inside-card">
+        <div class="inside-icon">🔁</div>
+        <div class="inside-title">Referral activation template</div>
+        <p class="inside-desc">A simple email to send existing clients that generates referrals without feeling awkward or transactional.</p>
+      </div>
+      <div class="inside-card">
+        <div class="inside-icon">📦</div>
+        <div class="inside-title">Format</div>
+        <p class="inside-desc">PDF playbook + Google Sheet lead tracker. Download instantly on-screen after payment. Email copy arrives simultaneously.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="who-for" aria-labelledby="for-title">
+  <div class="container">
+    <div style="max-width:680px;" data-reveal="fade">
+      <p class="section-eyebrow">Who this is for</p>
+      <h2 class="section-title" id="for-title">This system is for you if…</h2>
+    </div>
+    <div class="for-checks" style="max-width:640px;">
+      <div class="for-check" data-reveal data-delay="1"><span class="for-tick">✓</span><span>Your income is unpredictable month-to-month and you can't tell whether next month will be a feast or famine until it's already upon you.</span></div>
+      <div class="for-check" data-reveal data-delay="2"><span class="for-tick">✓</span><span>You rely on Upwork, Fiverr, or word-of-mouth for clients — and want to start reaching out directly instead of waiting and hoping.</span></div>
+      <div class="for-check" data-reveal data-delay="3"><span class="for-tick">✓</span><span>You get on discovery calls but consistently lose them to lower-priced competitors — because you don't have a framework to justify your rate.</span></div>
+      <div class="for-check" data-reveal data-delay="4"><span class="for-tick">✓</span><span>You've sent cold emails before and gotten zero replies — because the message was about you, not about the client's problem.</span></div>
+      <div class="for-check" data-reveal data-delay="5"><span class="for-tick">✓</span><span>You want a real system — not a "network more" platitude — that produces predictable results when you work it consistently.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--ink-1);" aria-labelledby="cta-box-title">
+  <div class="container">
+    <div class="cta-box" data-reveal style="max-width:560px;margin:0 auto;">
+      <div class="cta-box-title" id="cta-box-title">Get the Client Generation System</div>
+      <p class="cta-box-sub">Cold outreach · Lead tracker · Discovery call script · Close playbook · Instant download</p>
+      <span class="cta-box-price">₹1,299</span>
+      <button class="btn-primary buy-btn" data-slug="client-gen" style="margin:0 auto;">Buy now — instant delivery →</button>
+      <p style="font-size:.78rem;color:var(--txt-3);margin-top:14px;">7-day money-back guarantee · Razorpay secure · UPI, cards, netbanking, wallets</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <a href="../" class="nav-brand"><span class="nav-logo-mark" aria-hidden="true">⚡</span><span>Freelancer OS</span></a>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="../#products" style="font-size:.8rem;color:var(--txt-3);">All Products</a>
+        <a href="../legal/refund-policy.html" style="font-size:.8rem;color:var(--txt-3);">Refund Policy</a>
+        <a href="mailto:surisetti.dev@gmail.com" style="font-size:.8rem;color:var(--txt-3);">surisetti.dev@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom" style="margin-top:24px;"><span>© <span class="js-year"></span> Freelancer OS · Made for Indian freelancers</span></div>
+  </div>
+</footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
+<script src="../js/app-v3.js" defer></script>
+<script src="../js/checkout.js" defer></script>
+<script src="../js/analytics.js" defer></script>
 </body>
 </html>

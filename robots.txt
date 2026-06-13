@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block admin and API routes
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /functions/
+
+Sitemap: https://freelance-os.pages.dev/sitemap.xml
