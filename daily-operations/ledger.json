@@ -1,4 +1,13 @@
 {
   "sales": [],
-  "leads": []
+  "leads": [
+    {
+      "id": "465ecb5e-dde6-4cea-b3ab-1b6ce3b2b8bd",
+      "created_at": 1781459683222,
+      "email": "vijayprasad2182@gmail.com",
+      "source": "hero-lead-magnet",
+      "status": "new",
+      "notes": ""
+    }
+  ]
 }
