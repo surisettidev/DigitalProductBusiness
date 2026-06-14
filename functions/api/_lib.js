@@ -150,3 +150,22 @@ export async function logSaleToGithub(env, sale) {
     return putRes.ok;
   } catch (_) { return false; }
 }
+
+// ---- Log sale + buyer to the structured ledger (powers admin.html) ----
+export async function logSaleToLedger(env, { slug, productName, amountInr, email, paymentId, channel }) {
+  try {
+    const { appendToLedger } = await import('./_ledger.js');
+    const sale = {
+      product: slug || productName || 'unknown',
+      gross: amountInr || 0,
+      net: amountInr || 0,
+      channel: channel || 'razorpay',
+      email: email || '',
+      units: 1,
+      date: new Date().toISOString().slice(0, 10),
+      paymentId: paymentId || ''
+    };
+    const lead = email ? { email, source: `purchase:${slug || 'unknown'}`, status: 'customer', notes: '' } : null;
+    return await appendToLedger(env, { sale, lead });
+  } catch (_) { return { ok: false }; }
+}

@@ -2,15 +2,19 @@
 // Configure in Razorpay Dashboard → Settings → Webhooks:
 //   URL:    https://freelance-os.pages.dev/api/razorpay-webhook
 //   Secret: same value as Cloudflare env var RAZORPAY_WEBHOOK_SECRET
-//   Events: payment.captured
+//   Events: payment.captured (required). payment.authorized, payment.failed,
+//           and order.paid are accepted too — they're recorded for visibility
+//           but only payment.captured triggers delivery + ledger logging,
+//           since that's the event that means money actually landed.
 //
 // This is the reliable backstop for delivery + bookkeeping:
 //   1. Verifies the webhook signature (HMAC-SHA256 of raw body)
 //   2. On payment.captured → emails the product via Brevo,
-//      adds buyer to contact list, logs the sale to GitHub.
+//      adds buyer to contact list, logs the sale to GitHub +
+//      the structured ledger that powers admin.html.
 import {
   json, hmacSha256Hex, timingSafeEqual,
-  sendDeliveryEmail, addBrevoContact, logSaleToGithub, CATALOG
+  sendDeliveryEmail, addBrevoContact, logSaleToGithub, logSaleToLedger, CATALOG
 } from './_lib.js';
 
 export async function onRequestPost({ request, env }) {
@@ -44,7 +48,7 @@ export async function onRequestPost({ request, env }) {
         try { await addBrevoContact(env, { email, slug: slug || 'unknown' }); } catch (_) {}
       }
 
-      // 2. Log sale to GitHub sales ledger
+      // 2. Log sale to GitHub markdown ledger (human-readable)
       try {
         await logSaleToGithub(env, {
           date: new Date().toISOString(),
@@ -53,7 +57,16 @@ export async function onRequestPost({ request, env }) {
           email
         });
       } catch (_) { /* non-fatal */ }
+
+      // 3. Log sale + customer to the structured ledger (powers admin.html)
+      try {
+        await logSaleToLedger(env, { slug, productName, amountInr, email, paymentId, channel: 'razorpay' });
+      } catch (_) { /* non-fatal */ }
     }
+
+    // payment.authorized / payment.failed / order.paid: acknowledged but not
+    // logged to the ledger — payment.captured is the source of truth for
+    // money received. Returning 200 here just stops Razorpay from retrying.
 
     // Always 200 for verified events so Razorpay does not retry endlessly
     return json({ ok: true });

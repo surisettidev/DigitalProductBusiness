@@ -1,7 +1,6 @@
-// Captures lead email.
-// 1) Tries the Cloudflare Pages Function /api/brevo-subscribe (production, Brevo).
-// 2) Falls back to the built-in RESTful Table API (tables/leads) so the form
-//    works immediately on this hosting too — leads appear in admin.html.
+// Captures lead email via the Cloudflare Pages Function /api/brevo-subscribe,
+// which adds the contact to Brevo (if configured) AND logs the lead to the
+// structured ledger that powers admin.html — even if Brevo isn't set up yet.
 document.addEventListener('submit', async function (e) {
   const form = e.target.closest('#lead-form');
   if (!form) return;
@@ -16,7 +15,6 @@ document.addEventListener('submit', async function (e) {
 
   const source = form.getAttribute('data-source') || 'hero-lead-magnet';
 
-  // Attempt 1: Brevo via Cloudflare Pages Function
   let ok = false;
   try {
     const res = await fetch('/api/brevo-subscribe', {
@@ -25,19 +23,7 @@ document.addEventListener('submit', async function (e) {
       body: JSON.stringify({ email, source })
     });
     ok = res.ok;
-  } catch (_) { /* function not deployed here — fall through */ }
-
-  // Attempt 2: built-in table storage fallback
-  if (!ok) {
-    try {
-      const res = await fetch('tables/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source, status: 'new', notes: '' })
-      });
-      ok = res.ok;
-    } catch (_) { /* network failure */ }
-  }
+  } catch (_) { /* network failure */ }
 
   if (ok) {
     if (window.gtag) window.gtag('event', 'subscribe_newsletter', { method: 'lead_magnet' });
