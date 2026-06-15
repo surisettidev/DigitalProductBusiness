@@ -133,6 +133,7 @@ select.filter-sel{padding:7px 10px;border:1px solid var(--border);border-radius:
   <button class="tab-btn"        data-tab="leads"      role="tab">Leads</button>
   <button class="tab-btn"        data-tab="log-sale"   role="tab">Log Sale</button>
   <button class="tab-btn"        data-tab="add-lead"   role="tab">Add Lead</button>
+  <button class="tab-btn"        data-tab="live-data"  role="tab">Live Data</button>
 </nav>
 
 <div id="tab-overview" class="tab-pane active">
@@ -333,6 +334,25 @@ select.filter-sel{padding:7px 10px;border:1px solid var(--border);border-radius:
             <button type="submit" class="btn-primary">Add Lead</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-live-data" class="tab-pane">
+  <div class="admin-wrap">
+    <div class="container">
+      <div class="admin-panel">
+        <div class="section-header">
+          <h2>Live Data Sources</h2>
+          <button class="btn-sm" id="refresh-live-data" style="color:var(--violet-l);border-color:var(--violet);">↻ Refresh</button>
+        </div>
+        <p style="font-size:.85rem;color:var(--txt-3);margin-bottom:14px">
+          Pulled directly from GA4, Razorpay, Microsoft Clarity, Brevo, and GitHub.
+          Sources that aren't configured yet are skipped (not errors) — add the
+          relevant API keys in Cloudflare to enable them.
+        </p>
+        <div id="live-data-body"><div class="empty-state">Loading live data…</div></div>
       </div>
     </div>
   </div>
@@ -772,8 +792,120 @@ function fmtDate(val) {
 
 function init() {
   loadAll();
+  loadLiveData();
   setInterval(loadAll, 60000);
 }
+
+// ---- Live Data (GA4, Razorpay, Clarity, Brevo, GitHub) ----
+async function loadLiveData() {
+  const body = document.getElementById('live-data-body');
+  body.innerHTML = '<div class="empty-state">Loading live data…</div>';
+  let data;
+  try {
+    data = await apiGet('/api/fetch-all-data');
+  } catch (e) {
+    body.innerHTML = '<div class="empty-state">Could not reach /api/fetch-all-data — ' + e.message + '</div>';
+    return;
+  }
+
+  if (!data || !data.ok) {
+    body.innerHTML = '<div class="empty-state">' + (data && data.error || 'Failed to load live data') + '</div>';
+    return;
+  }
+
+  const cards = [];
+
+  // GA4
+  cards.push(renderSourceCard('Google Analytics 4', data.ga4, (d) => `
+    <div class="admin-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:0">
+      <div class="metric-card"><div class="num">${d.activeUsers}</div><div class="lbl">Active Users (${d.dateRange.startDate} → ${d.dateRange.endDate})</div></div>
+      <div class="metric-card"><div class="num">${d.pageViews}</div><div class="lbl">Page Views</div></div>
+      <div class="metric-card"><div class="num">${d.avgBounceRate}%</div><div class="lbl">Avg Bounce Rate</div></div>
+    </div>
+    <div style="margin-top:12px;font-size:.85rem;color:var(--txt-3)">
+      Sessions: ${d.sessions} · Avg session duration: ${d.avgSessionDurationSeconds}s
+    </div>
+    ${d.deviceBreakdown && d.deviceBreakdown.length ? `
+    <div style="margin-top:10px">
+      ${d.deviceBreakdown.map(db => `<span class="badge-pill badge-welcomed" style="margin-right:6px">${db.device}: ${db.users} users</span>`).join('')}
+    </div>` : ''}
+  `));
+
+  // Razorpay
+  cards.push(renderSourceCard('Razorpay', data.razorpay, (d) => `
+    <div class="admin-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:0">
+      <div class="metric-card"><div class="num">₹${Number(d.totalRevenueInr).toLocaleString('en-IN')}</div><div class="lbl">Revenue (${d.dateRangeDays}d)</div></div>
+      <div class="metric-card"><div class="num">${d.capturedCount}</div><div class="lbl">Captured</div></div>
+      <div class="metric-card"><div class="num">${d.failedCount}</div><div class="lbl">Failed</div></div>
+      <div class="metric-card"><div class="num">₹${d.avgOrderValueInr}</div><div class="lbl">Avg Order</div></div>
+    </div>
+    ${d.recentPayments && d.recentPayments.length ? `
+    <div style="overflow-x:auto;margin-top:12px">
+      <table class="admin-table">
+        <thead><tr><th>Date</th><th>Amount</th><th>Email</th></tr></thead>
+        <tbody>${d.recentPayments.slice(0,5).map(p => `<tr><td>${fmtDate(p.createdAt)}</td><td>₹${p.amountInr}</td><td>${p.email || '—'}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>` : '<div class="empty-state" style="padding:16px">No payments in this window.</div>'}
+  `));
+
+  // Clarity
+  cards.push(renderSourceCard('Microsoft Clarity', data.clarity, (d) => `
+    <div style="font-size:.85rem;color:var(--txt-2)">${d.note || ''}</div>
+    <pre style="background:var(--ink-3);border-radius:8px;padding:12px;font-size:.78rem;color:var(--txt-2);overflow-x:auto;margin-top:10px;max-height:240px">${escapeHtml(JSON.stringify(d.raw, null, 2))}</pre>
+  `));
+
+  // Brevo
+  cards.push(renderSourceCard('Brevo', data.brevo, (d) => `
+    <div class="admin-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:0">
+      <div class="metric-card"><div class="num">${d.list ? d.list.totalSubscribers : '—'}</div><div class="lbl">${d.list ? d.list.name : 'List'} Subscribers</div></div>
+      <div class="metric-card"><div class="num">${d.planType}</div><div class="lbl">Plan</div></div>
+      <div class="metric-card"><div class="num">${d.planCredits ?? '—'}</div><div class="lbl">Credits</div></div>
+    </div>
+  `));
+
+  // GitHub
+  cards.push(renderSourceCard('GitHub', data.github, (d) => `
+    <div class="admin-grid" style="grid-template-columns:repeat(2,1fr);margin-bottom:0">
+      <div class="metric-card"><div class="num">${d.openIssues}</div><div class="lbl">Open Issues</div></div>
+      <div class="metric-card"><div class="num">${d.pendingApprovals}</div><div class="lbl">Pending AI Approvals</div></div>
+    </div>
+    ${d.lastCommit ? `<div style="margin-top:10px;font-size:.85rem;color:var(--txt-3)">Last commit (${d.lastCommit.sha}): ${escapeHtml(d.lastCommit.message || '')}</div>` : ''}
+    ${d.pendingApprovalTitles && d.pendingApprovalTitles.length ? `
+    <div style="margin-top:10px">
+      ${d.pendingApprovalTitles.map(t => `<div class="badge-pill badge-new" style="margin:2px">${escapeHtml(t)}</div>`).join('')}
+    </div>` : ''}
+  `));
+
+  body.innerHTML = cards.join('');
+
+  if (data.skipped && data.skipped.length) {
+    const skippedHtml = data.skipped.map(s => `<span class="badge-pill ${s.status === 'not_configured' ? 'badge-welcomed' : 'badge-new'}" style="margin:2px">${s.source}: ${s.status}${s.reason ? ' — ' + escapeHtml(s.reason) : ''}</span>`).join('');
+    body.innerHTML += `<div class="admin-panel" style="margin-bottom:0"><div class="section-header"><h2>Skipped / Not Configured</h2></div>${skippedHtml}</div>`;
+  }
+}
+
+function renderSourceCard(title, sourceData, renderFn) {
+  if (!sourceData) {
+    return `<div class="admin-panel"><div class="section-header"><h2>${title}</h2></div><div class="empty-state">No data returned.</div></div>`;
+  }
+  if (sourceData.status === 'not_configured') {
+    return `<div class="admin-panel"><div class="section-header"><h2>${title}</h2><span class="badge-pill badge-welcomed">Not configured</span></div><div class="empty-state">${escapeHtml(sourceData.reason || 'Add the required API keys in Cloudflare to enable this.')}</div></div>`;
+  }
+  if (sourceData.status === 'error') {
+    return `<div class="admin-panel"><div class="section-header"><h2>${title}</h2><span class="badge-pill flag-none" style="background:rgba(244,63,94,0.15);color:var(--rose)">Error</span></div><div class="empty-state">${escapeHtml(sourceData.error || 'Unknown error')}</div></div>`;
+  }
+  return `<div class="admin-panel"><div class="section-header"><h2>${title}</h2><span class="badge-pill badge-cust">Live</span></div>${renderFn(sourceData)}</div>`;
+}
+
+function escapeHtml(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+document.getElementById('refresh-live-data').addEventListener('click', loadLiveData);
+document.querySelector('[data-tab="live-data"]').addEventListener('click', loadLiveData);
+
 window.addEventListener('DOMContentLoaded', checkGate);
 </script>
 </body>
