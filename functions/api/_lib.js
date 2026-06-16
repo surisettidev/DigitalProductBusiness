@@ -4,18 +4,17 @@
 // ============================================================
 
 // ---- Server-side product catalog (authoritative prices in paise) ----
-// NEVER trust prices from the client. Amounts here are INR paise.
 export const CATALOG = {
-  'ai-freelancer': { name: 'AI for Freelancers Guide',                 amount: 69900 },
-  'pricing-guide': { name: 'Freelancer Pricing Masterclass',           amount: 89900 },
-  'tax-guide':     { name: 'Indian Freelancer Tax & Compliance Guide', amount: 79900 },
-  'client-gen':    { name: 'Client Generation & Lead System',          amount: 129900 },
-  'business-os':   { name: 'Solopreneur Business OS',                  amount: 189900 },
-  'bundle':        { name: 'Complete Freelancer OS (All 5)',           amount: 399900 }
+  'automation-bundle': { name: 'Freelancer Automation Bundle',           amount: 99900  },
+  'ai-freelancer':     { name: 'AI for Freelancers Guide',               amount: 69900  },
+  'pricing-guide':     { name: 'Freelancer Pricing Masterclass',         amount: 89900  },
+  'tax-guide':         { name: 'Indian Freelancer Tax & Compliance Guide',amount: 79900  },
+  'client-gen':        { name: 'Client Generation & Lead System',        amount: 129900 },
+  'business-os':       { name: 'Solopreneur Business OS',                amount: 189900 },
+  'bundle':            { name: 'Complete Freelancer OS (All 5)',          amount: 399900 }
 };
 
-// Bundle expands to all 5 product slugs for delivery
-export const BUNDLE_SLUGS = ['ai-freelancer', 'pricing-guide', 'tax-guide', 'client-gen', 'business-os'];
+export const BUNDLE_SLUGS = ['automation-bundle', 'ai-freelancer', 'pricing-guide', 'tax-guide', 'client-gen', 'business-os'];
 
 export function json(data, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(data), {
@@ -24,7 +23,7 @@ export function json(data, status = 200, extraHeaders = {}) {
   });
 }
 
-// ---- Crypto helpers (Web Crypto — Workers runtime, no Node APIs) ----
+// ---- Crypto helpers ----
 export async function hmacSha256Hex(secret, message) {
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey(
@@ -41,14 +40,12 @@ export function timingSafeEqual(a, b) {
   return out === 0;
 }
 
-// ---- Delivery links ----
-// Operator sets a Cloudflare env var DELIVERY_LINKS as JSON, e.g.:
-//   {"ai-freelancer":"https://drive.google.com/...","pricing-guide":"https://..."}
-// Until set, customers see a friendly "we'll email it shortly" fallback and
-// the operator gets notified via the sales log.
+// ---- Delivery links (fallback for on-page delivery) ----
+// DELIVERY_LINKS env var: JSON map of slug → URL
+// e.g. {"automation-bundle":"https://drive.google.com/..."}
 export function getDeliveryItems(env, slug) {
   let links = {};
-  try { links = JSON.parse(env.DELIVERY_LINKS || '{}'); } catch (_) { /* malformed JSON */ }
+  try { links = JSON.parse(env.DELIVERY_LINKS || '{}'); } catch (_) {}
   const slugs = slug === 'bundle' ? BUNDLE_SLUGS : [slug];
   return slugs.map(s => ({
     slug: s,
@@ -57,35 +54,70 @@ export function getDeliveryItems(env, slug) {
   }));
 }
 
-// ---- Brevo transactional email (product delivery) ----
-export async function sendDeliveryEmail(env, { email, name, slug, paymentId }) {
-  if (!env.BREVO_API_KEY || !email) return false;
+// ---- Primary delivery: Google AppScript webhook ----
+// Calls your deployed AppScript Web App which generates Drive link + sends Gmail.
+// Falls back to Brevo if AppScript not configured.
+export async function sendDeliveryEmail(env, { email, name, slug, paymentId, orderId }) {
+  // Try AppScript first (primary)
+  if (env.DELIVERY_WEBHOOK_URL && env.DELIVERY_SECRET) {
+    try {
+      const res = await fetch(env.DELIVERY_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: env.DELIVERY_SECRET,
+          customerEmail: email,
+          customerName: name || email.split('@')[0],
+          productId: slug,
+          paymentId,
+          orderId: orderId || '',
+          amount: (CATALOG[slug] || {}).amount ? (CATALOG[slug].amount / 100) : 0
+        })
+      });
+      const result = await res.json().catch(() => ({}));
+      if (result.success) return true;
+      console.error('AppScript delivery failed:', result.error);
+    } catch (e) {
+      console.error('AppScript delivery error:', e.message);
+    }
+  }
+
+  // Fallback: Brevo (if configured)
+  if (env.BREVO_API_KEY && email) {
+    return sendBrevoDeliveryEmail(env, { email, name, slug, paymentId });
+  }
+
+  return false;
+}
+
+// ---- Brevo transactional email (fallback) ----
+async function sendBrevoDeliveryEmail(env, { email, name, slug, paymentId }) {
   const items = getDeliveryItems(env, slug);
   const productName = (CATALOG[slug] || {}).name || slug;
 
   const linksHtml = items.map(it => it.url
     ? `<tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
-         <strong style="color:#0f172a;">${it.name}</strong><br>
-         <a href="${it.url}" style="display:inline-block;margin-top:6px;background:#2563eb;color:#ffffff;padding:9px 18px;border-radius:8px;text-decoration:none;font-weight:600;">Download →</a>
+         <strong>${it.name}</strong><br>
+         <a href="${it.url}" style="display:inline-block;margin-top:6px;background:#2563eb;color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-weight:600;">Download →</a>
        </td></tr>`
     : `<tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
-         <strong style="color:#0f172a;">${it.name}</strong><br>
-         <span style="color:#475569;">Your download link will be emailed within a few hours. Reply to this email if you need it sooner.</span>
+         <strong>${it.name}</strong><br>
+         <span style="color:#475569;">Your download link will be emailed within a few hours.</span>
        </td></tr>`
   ).join('');
 
   const html = `
-  <div style="font-family:Inter,'Segoe UI',Arial,sans-serif;max-width:560px;margin:0 auto;background:#ffffff;">
+  <div style="font-family:Inter,'Segoe UI',Arial,sans-serif;max-width:560px;margin:0 auto;">
     <div style="background:#0f172a;padding:22px 28px;border-radius:12px 12px 0 0;">
-      <span style="color:#ffffff;font-weight:800;font-size:18px;">Freelancer OS</span>
+      <span style="color:#fff;font-weight:800;font-size:18px;">Freelancer OS</span>
     </div>
     <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:28px;">
       <h2 style="color:#0f172a;margin:0 0 8px;">Payment received — here's your product 🎉</h2>
-      <p style="color:#475569;">Thanks for buying <strong>${productName}</strong>. Your downloads:</p>
+      <p style="color:#475569;">Thanks for buying <strong>${productName}</strong>.</p>
       <table style="width:100%;border-collapse:collapse;">${linksHtml}</table>
       <p style="color:#475569;margin-top:18px;font-size:14px;">
         Payment reference: <code>${paymentId || '-'}</code><br>
-        7-day money-back guarantee — just reply to this email if it didn't help you.
+        7-day money-back guarantee — just reply to this email.
       </p>
       <p style="color:#94a3b8;font-size:12px;margin-top:22px;">
         Freelancer OS · Practical digital products for Indian freelancers<br>
@@ -107,7 +139,7 @@ export async function sendDeliveryEmail(env, { email, name, slug, paymentId }) {
   return res.ok;
 }
 
-// ---- Add buyer to Brevo contact list (tagged as customer) ----
+// ---- Add buyer to Brevo contact list ----
 export async function addBrevoContact(env, { email, slug }) {
   if (!env.BREVO_API_KEY || !email) return false;
   try {
@@ -125,7 +157,7 @@ export async function addBrevoContact(env, { email, slug }) {
   } catch (_) { return false; }
 }
 
-// ---- Log sale to GitHub sales-tracker.md (human-readable ledger) ----
+// ---- Log sale to GitHub sales-tracker.md ----
 export async function logSaleToGithub(env, sale) {
   const token = env.GITHUB_PAT;
   const owner = env.GITHUB_OWNER || 'surisettidev';
@@ -151,7 +183,7 @@ export async function logSaleToGithub(env, sale) {
   } catch (_) { return false; }
 }
 
-// ---- Log sale + buyer to the structured ledger (powers admin.html) ----
+// ---- Log sale to ledger (powers admin.html) ----
 export async function logSaleToLedger(env, { slug, productName, amountInr, email, paymentId, channel }) {
   try {
     const { appendToLedger } = await import('./_ledger.js');
