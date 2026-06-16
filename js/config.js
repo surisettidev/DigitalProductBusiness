@@ -1,8 +1,8 @@
 // ============================================================
 // PUBLIC client-side config. NEVER put secrets here.
-// Prices shown here are DISPLAY ONLY — the server-side catalog in
-// functions/api/_lib.js is the authoritative price list used to
-// create Razorpay orders. Keep both in sync when changing prices.
+// Prices shown here are DISPLAY ONLY — server-side catalog in
+// functions/api/_lib.js is the authoritative price list.
+// Keep both in sync when changing prices.
 // ============================================================
 
 window.APP_CONFIG = {
@@ -12,22 +12,26 @@ window.APP_CONFIG = {
   currency: "INR",
   currencySymbol: "₹",
   domain: "https://freelance-os.pages.dev",
-
-  // Payments: Razorpay (UPI, cards, netbanking, wallets).
-  // Orders are created server-side via /api/create-order — no keys here.
   paymentGateway: "razorpay",
 
   analytics: {
-    ga4Id: "G-DH0HSN4Z0H",
+    ga4Id: "G-4L0BZQC894",
     clarityId: "x5vbk9lkvs"
   },
 
   products: {
+    "automation-bundle": {
+      name: "Freelancer Automation Bundle",
+      price: 999,
+      page: "products/automation-bundle.html",
+      emoji: "🤖",
+      desc: "5 copy-paste automations (n8n + AppScript). Save 5-10 hours/week. Lead capture, invoicing, cold emails, social scheduling, lead scoring."
+    },
     "ai-freelancer": {
       name: "AI for Freelancers Guide",
       price: 699,
       page: "products/ai-freelancer.html",
-      emoji: "🤖",
+      emoji: "🧠",
       desc: "Stop wasting hours picking the wrong AI. Decision tree + 50 prompts + free-API setup guide."
     },
     "pricing-guide": {
