@@ -17,6 +17,58 @@ const PRODUCT_NAMES = {
   'bundle'         : 'Bundle',
 };
 
+async function sendWaitlistConfirmation(env, email, productName) {
+  if (!env.BREVO_API_KEY) return;
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sender: {
+        name: 'Suresh @ Freelancer OS',
+        email: env.BREVO_SENDER_EMAIL || 'hello@freelanceos.co.in'
+      },
+      to: [{ email }],
+      subject: `You're on the waitlist — ${productName}`,
+      htmlContent: `<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#f9fafb;font-family:sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;padding:40px 0;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;padding:40px;max-width:560px;">
+        <tr><td>
+          <p style="font-size:24px;font-weight:700;color:#111827;margin:0 0 8px;">You're in! 🎉</p>
+          <p style="font-size:16px;color:#6b7280;margin:0 0 24px;">
+            You're on the early-access waitlist for <strong style="color:#111827;">${productName}</strong>.
+          </p>
+          <p style="font-size:15px;color:#374151;margin:0 0 16px;">
+            When it launches, you'll be the first to know — and you'll get an <strong>early-bird discount</strong> as a thank you for signing up early.
+          </p>
+          <p style="font-size:15px;color:#374151;margin:0 0 32px;">
+            In the meantime, if you have questions or want to share what would make this product more useful for you, just reply to this email.
+          </p>
+          <p style="font-size:14px;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:24px;margin:0;">
+            — Suresh Surisetti<br>
+            <a href="https://freelanceos.co.in" style="color:#6366f1;text-decoration:none;">freelanceos.co.in</a>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+      textContent: `You're on the waitlist for ${productName}!
+
+When it launches, you'll be the first to know and get an early-bird discount.
+
+Reply to this email if you have questions.
+
+— Suresh @ Freelancer OS
+https://freelanceos.co.in`
+    })
+  });
+  return res;
+}
+
 export async function onRequestPost({ request, env }) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -51,7 +103,7 @@ export async function onRequestPost({ request, env }) {
       }
     });
 
-    // Optionally add to Brevo contact list (non-fatal if Brevo not configured)
+    // Add to Brevo contact list (non-fatal)
     if (env.BREVO_API_KEY) {
       try {
         await fetch('https://api.brevo.com/v3/contacts', {
@@ -68,6 +120,11 @@ export async function onRequestPost({ request, env }) {
             updateEnabled: true
           })
         });
+      } catch (_) { /* non-fatal */ }
+
+      // Send confirmation email (non-fatal)
+      try {
+        await sendWaitlistConfirmation(env, email, productName);
       } catch (_) { /* non-fatal */ }
     }
 
