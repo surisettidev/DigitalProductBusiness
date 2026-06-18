@@ -1,0 +1,66 @@
+// config/product-status.json
+// Controls the state of each product page.
+//
+// status options:
+//   "coming-soon"   — hides buy button, shows waitlist form (no PDF ready)
+//   "live"          — shows buy button (PDF ready + Razorpay connected)
+//
+// Change any product from "coming-soon" to "live" once:
+//   1. The PDF is built and hosted/linked in DELIVERY_LINKS env var
+//   2. Razorpay is approved (or Cashfree fallback configured)
+//   3. End-to-end delivery is tested (buy → receive email → download works)
+//
+// AI Agent: NEVER change status from "coming-soon" to "live" automatically.
+//           Request human approval via GitHub issue first.
+{
+  "products": {
+    "ai-freelancer": {
+      "status": "coming-soon",
+      "slug": "ai-freelancer",
+      "name": "AI for Freelancers Guide",
+      "price": 699,
+      "earlyBirdDiscount": 20,
+      "launchEta": "July 2026"
+    },
+    "pricing-guide": {
+      "status": "coming-soon",
+      "slug": "pricing-guide",
+      "name": "Freelancer Pricing Masterclass",
+      "price": 899,
+      "earlyBirdDiscount": 20,
+      "launchEta": "July 2026"
+    },
+    "tax-guide": {
+      "status": "coming-soon",
+      "slug": "tax-guide",
+      "name": "Indian Tax Guide 2026-27",
+      "price": 999,
+      "earlyBirdDiscount": 20,
+      "launchEta": "July 2026"
+    },
+    "client-gen": {
+      "status": "coming-soon",
+      "slug": "client-gen",
+      "name": "Client Negotiation Vault",
+      "price": 1299,
+      "earlyBirdDiscount": 20,
+      "launchEta": "August 2026"
+    },
+    "business-os": {
+      "status": "coming-soon",
+      "slug": "business-os",
+      "name": "Portfolio + Proposal OS",
+      "price": 1499,
+      "earlyBirdDiscount": 20,
+      "launchEta": "August 2026"
+    },
+    "tool-stack": {
+      "status": "coming-soon",
+      "slug": "tool-stack",
+      "name": "Indian Freelancer Tool Stack 2026",
+      "price": 499,
+      "earlyBirdDiscount": 20,
+      "launchEta": "July 2026"
+    }
+  }
+}
