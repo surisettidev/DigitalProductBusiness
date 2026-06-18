@@ -2,28 +2,32 @@
 
 > Updated every evening by the previous day's AI agent OR by the human operator.
 
-## Today's priority (2026-06-12)
-1. Generate 3 X/Twitter posts about freelancer pricing mistakes (BRAND-VOICE.md tone)
-2. Generate 1 Reddit comment-draft for r/IndianFreelancer (helpful, non-promotional)
-3. Generate 1 LinkedIn post about "AI tools that actually save freelancers time"
-4. Draft 1 nurture email for new pricing-calculator subscribers
-5. Save all outputs to `/marketing/2026-06-12/`
-6. Update `daily-log.md` with what was done
+## Today's priority (2026-06-19)
+
+1. **Start authoring the Tool Stack PDF** — open `products/01-tool-stack/tool-stack-2026-Q3.md`, draft Sections 1 (Invoicing & GST: Refrens, Zoho Invoice, Vyapar, Sleek Bill) and 2 (Domestic payments: UPI, Razorpay, Cashfree, Instamojo). Target: ~12 pages of substantive comparison content with India-specific notes (GSTIN handling, TDS implications, settlement times). Cite official tool docs; mark anything uncertain with `[NEEDS-VERIFY]` so the human reviewer (per AI-DISCLOSURE-POLICY Tier 2) can fix-or-fact-check.
+2. **Draft Email 2** of the welcome nurture sequence into `/marketing/email-drafts/2026-06-19-welcome-email-2.md`. Theme: "where most freelancers lose money on tools." Body ≤ 200 words, soft CTA to the Tool Stack waitlist.
+3. **Open a formal `needs-approval` Issue** bundling the three unblock-the-funnel asks: (a) buy `freelanceros.in` from BigRock (~₹300/yr), (b) swap `BREVO_API_KEY` to SMTP v3 (`xkeysib-` prefix), (c) replace `GA4_PROPERTY_ID` with numeric Property ID. One Issue, three checkboxes — keeps approval lightweight.
 
 ## Reference docs (read these first)
 - `/config/BRIEF.md`
 - `/config/BRAND-VOICE.md`
-- `/config/PRODUCT-SPECS.md`
-- `/daily-operations/daily-log.md` (yesterday's log)
+- `/config/PRODUCT-ROADMAP.md` (NOT the old PRODUCT-SPECS — the roadmap is the current source of truth)
+- `/config/AI-DISCLOSURE-POLICY.md` (mandatory for Tool Stack content — it's a Tier 2 product)
+- `/daily-operations/daily-log.md` (yesterday's entry)
+- `/context/daily-agent-log.jsonl` (tail -7)
+
+## API rotation for content generation
+2026-06-19 is **Friday** → **Groq Llama 3.3** (fastest).
 
 ## Constraints
-- No fake testimonials, no fake numbers
-- Keep posts under 280 chars (X), 250 words (LinkedIn), 350 words (Reddit)
-- Always lead with value, not pitch
-- Mention products only in 1 of 5 posts at most
+- No fake testimonials, no fake numbers.
+- Tier 2 product content REQUIRES the disclosure footer:
+  > *Reviewed and verified by Suresh Surisetti before publication. Last updated: [DATE]. Tax/legal/financial information is educational and not professional advice. Consult a qualified CA for personal tax decisions.*
+- Tool Stack pricing/features must be verified against the tool's official site at time of writing — mark anything you can't verify with `[NEEDS-VERIFY]`.
+- One PR per scope. Don't bundle product content + infra changes in one PR.
 
-## Escalate to human if:
-- Sales drop below 1/day for 3 consecutive days
-- Any payment failure reported
-- A product file is broken or missing
-- Customer support email needs a human reply
+## Escalate to human (open `needs-approval` Issue) if:
+- You'd need to change a price in `js/config.js` or any product README
+- You'd need to send a real email (drafts only)
+- You'd need to rewrite >50 lines of an existing file
+- You hit 3 consecutive days with 0 leads + 0 sales (escalation email to surisetti.dev@gmail.com)
