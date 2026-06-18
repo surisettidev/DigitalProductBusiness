@@ -20,14 +20,15 @@
   });
 
   const FEATURES = {
-    'ai-freelancer':  ['50+ curated AI prompts',          'Which-tool decision tree',       'Free API setup guide (₹0 cost)'],
-    'pricing-guide':  ['Value-based pricing calculator',   'Proposal templates (5 niches)',   'Rate-raise email scripts'],
-    'tax-guide':      ['GST registration walkthrough',     'Section 44ADA savings guide',     'GST-compliant invoice template'],
-    'client-gen':     ['Cold outreach email sequences',    'Lead tracker spreadsheet',        'Discovery call script'],
-    'business-os':    ['Complete Notion OS template',      'Weekly + monthly review playbook','Revenue dashboard included'],
+    'automation-bundle': ['Lead capture → Google Sheet CRM (auto)', 'Invoice PDF on every Razorpay payment', 'AI cold email sequences (Day 1, 3, 5)', 'Social posts auto-scheduled weekly', 'Hot lead scoring + instant alerts'],
+    'ai-freelancer':     ['50+ curated AI prompts',                 'Which-tool decision tree',               'Free API setup guide (₹0 cost)'],
+    'pricing-guide':     ['Value-based pricing calculator',          'Proposal templates (5 niches)',           'Rate-raise email scripts'],
+    'tax-guide':         ['GST registration walkthrough',            'Section 44ADA savings guide',             'GST-compliant invoice template'],
+    'client-gen':        ['Cold outreach email sequences',           'Lead tracker spreadsheet',                'Discovery call script'],
+    'business-os':       ['Complete Notion OS template',             'Weekly + monthly review playbook',        'Revenue dashboard included'],
   };
 
-  const ORDER = ['ai-freelancer','pricing-guide','tax-guide','client-gen','business-os'];
+  const ORDER = ['automation-bundle', 'ai-freelancer', 'pricing-guide', 'tax-guide', 'client-gen', 'business-os'];
 
   /* ── Product cards ──────────────────────────────────── */
   const grid = document.getElementById('products-grid');
@@ -35,12 +36,12 @@
     grid.innerHTML = ORDER.map(slug => {
       const p = cfg.products[slug];
       if (!p) return '';
-      const featured = slug === 'ai-freelancer';
+      const featured = slug === 'automation-bundle';
       const feats    = FEATURES[slug] || [];
 
       return `
 <article class="product-card${featured ? ' featured' : ''}">
-  ${featured ? '<div style="margin-bottom:10px"><span class="card-badge">⭐ Start here</span></div>' : ''}
+  ${featured ? '<div style="margin-bottom:10px"><span class="card-badge">⭐ Most popular</span></div>' : ''}
   <div class="card-emoji">${p.emoji || '📦'}</div>
   <div class="card-title"><a href="${p.page || '#'}">${p.name}</a></div>
   <p class="card-desc">${p.desc || ''}</p>
@@ -68,33 +69,22 @@
   /* ── Bundle card ──────────────────────────────────────── */
   const bundleEl = document.getElementById('bundle-card');
   if (bundleEl && cfg.products && cfg.products.bundle) {
-    const b   = cfg.products.bundle;
-    const sym = cfg.currencySymbol || '₹';
-    const savings = b.originalPrice ? b.originalPrice - b.price : 0;
-    const pct     = b.originalPrice ? Math.round((savings / b.originalPrice) * 100) : 0;
-
+    const b = cfg.products.bundle;
     bundleEl.innerHTML = `
 <div class="bundle-inner">
   <div class="bundle-left">
-    <div class="bundle-flag">🔥 Best Value — Save ${pct}%</div>
-    <div class="bundle-title">${b.emoji || '🎁'} Complete Freelancer OS</div>
-    <p class="bundle-sub">All 5 products · Every system you need to run a thriving freelance business in India</p>
-    <div class="bundle-chips">
-      <span class="bundle-chip">🤖 AI Guide</span>
-      <span class="bundle-chip">💰 Pricing</span>
-      <span class="bundle-chip">🧾 Tax</span>
-      <span class="bundle-chip">🎯 Clients</span>
-      <span class="bundle-chip">🗂️ Business OS</span>
-    </div>
+    <span class="bundle-badge">Best Value</span>
+    <h3 class="bundle-title">${b.name}</h3>
+    <p class="bundle-desc">${b.desc}</p>
   </div>
-  <div class="bundle-pricing">
-    ${b.originalPrice ? `<span class="bundle-orig">${sym}${b.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-    <span class="bundle-amount">${sym}${b.price.toLocaleString('en-IN')}</span>
-    ${savings > 0 ? `<span class="bundle-save">You save ${sym}${savings.toLocaleString('en-IN')}</span>` : ''}
-    <button class="bundle-buy" data-slug="bundle" aria-label="Buy Complete Freelancer OS bundle">
-      Get the Full Bundle →
+  <div class="bundle-right">
+    ${b.originalPrice ? `<span class="bundle-original">${cfg.currencySymbol}${b.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+    <span class="bundle-price">${cfg.currencySymbol}${b.price.toLocaleString('en-IN')}</span>
+    <button class="buy-btn buy-btn--bundle" data-slug="bundle" aria-label="Buy ${b.name}">
+      Get everything →
     </button>
   </div>
 </div>`;
   }
+
 })();
