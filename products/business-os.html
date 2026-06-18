@@ -67,6 +67,21 @@
     .cta-box-price{font-family:var(--display);font-size:2.4rem;font-weight:900;color:var(--txt-1);display:block;margin-bottom:20px}
     .bundle-note{background:rgba(123,94,167,0.08);border:1px solid rgba(123,94,167,0.2);border-radius:var(--r);padding:14px 16px;font-size:.82rem;color:var(--txt-2);line-height:1.6;margin-top:20px;text-align:left}
     .bundle-note a{color:var(--violet-l);text-decoration:underline}
+
+    /* ── Waitlist state (injected by product-state.js when status = coming-soon) ── */
+    .waitlist-wrap,.waitlist-inner{width:100%}
+    .waitlist-badge{display:inline-block;background:rgba(123,94,167,.18);color:var(--violet-l);border-radius:999px;padding:4px 14px;font-size:.78rem;font-weight:700;margin-bottom:10px}
+    .waitlist-headline{font-family:var(--display);font-size:clamp(1.1rem,3vw,1.4rem);font-weight:800;color:var(--txt-1);margin-bottom:8px}
+    .waitlist-sub{font-size:.9rem;color:var(--txt-2);margin-bottom:18px;line-height:1.6}
+    .waitlist-row{display:flex;gap:10px;flex-wrap:wrap}
+    .waitlist-input{flex:1;min-width:180px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--ink-0);color:var(--txt-1);font-size:.95rem;font-family:inherit}
+    .waitlist-input:focus{outline:none;border-color:var(--violet)}
+    .waitlist-btn{padding:12px 22px;background:var(--violet);color:#fff;border:0;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;white-space:nowrap;font-family:inherit}
+    .waitlist-btn:hover{background:var(--violet-l)}
+    .waitlist-note{font-size:.78rem;color:var(--txt-3);margin-top:8px}
+    .waitlist-success{color:var(--emerald);font-size:.9rem;margin-top:10px;font-weight:600}
+    .waitlist-error{color:var(--rose);font-size:.85rem;margin-top:8px}
+    .hidden-cta-row{display:none!important}
   </style>
 </head>
 <body>
@@ -200,6 +215,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
 <script src="../js/app-v3.js" defer></script>
+<script src="../js/product-state.js" data-slug="business-os" defer></script>
 <script src="../js/checkout.js" defer></script>
 <script src="../js/analytics.js" defer></script>
 </body>
