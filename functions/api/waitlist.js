@@ -29,7 +29,7 @@ async function sendWaitlistConfirmation(env, email, productName) {
     headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       sender: {
-        name: 'Suresh @ Freelancer OS',
+        name: 'surisetti dev',
         email: senderEmail
       },
       to: [{ email }],
