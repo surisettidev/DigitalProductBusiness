@@ -397,7 +397,7 @@ If you've never paid for any tool and want to graduate to a real freelance setup
 - AI section overhauled — Claude/ChatGPT/Gemini prices and capabilities current as of June 2026
 
 ### Next refresh: October 2026
-Past buyers get a free updated copy in their inbox.
+Past buyers can request the updated edition by emailing surisetti.dev@gmail.com (allow up to 7 business days). See "Future editions" section below for full details.
 
 ---
 
@@ -451,13 +451,20 @@ That's ₹20,400-₹54,000/year of savings or risk-reduction from a ₹499 guide
 
 ---
 
-## Quarterly update guarantee-if not received ping via email
+## Future editions — how to get them
 
-You bought the Q3 2026 edition. You will receive Q4 2026, Q1 2027, and Q2 2027 editions free in your inbox at `surisetti.dev@gmail.com`. If a tool you depend on dies between editions (e.g., a payment provider exits India), you'll get an email update within 7 days of the change if not received ping surisetti.dev@gmail.com via email.
+This is the Q3 2026 edition. Tools and pricing in India change fast, so newer editions get released as the landscape shifts.
+
+**Future editions are not sent automatically.** To get the next edition when it's ready, email `surisetti.dev@gmail.com` with the subject "Tool Stack update" (mention which edition you originally bought). Allow up to 7 business days for a reply with the new edition.
+
+**A few things to know:**
+- Continued free updates depend on this product's demand. If it doesn't get an active buyer base, future editions may come at a small additional cost — you'll be told the price before being charged, never billed automatically.
+- This guide may be retired or replaced by a future product if it stops getting used. If that happens before your next requested update, you'll be notified and offered whatever the closest current equivalent is.
+- If a tool you depend on changes drastically between editions (shuts down, exits India, etc.), that's still on you to verify independently — this guide is a starting point, not a live monitoring service.
 
 ---
 
-*Built and maintained by Karthik Surisetti. Disagree with a recommendation? Email surisetti.dev@gmail.com — version 2026-Q4 might include your feedback.*
+*Built and maintained by Karthik Surisetti. Questions, corrections, or feedback — anytime: surisetti.dev@gmail.com*
 
 > Reviewed and verified by Karthik Surisetti before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.
