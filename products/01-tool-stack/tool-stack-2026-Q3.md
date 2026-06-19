@@ -451,13 +451,25 @@ That's ₹20,400-₹54,000/year of savings or risk-reduction from a ₹499 guide
 
 ---
 
-## Quarterly update guarantee-if not received ping via email
+## Quarterly updates — what to expect and when to reach out
 
-You bought the Q3 2026 edition. You will receive Q4 2026, Q1 2027, and Q2 2027 editions free in your inbox at `surisetti.dev@gmail.com`. If a tool you depend on dies between editions (e.g., a payment provider exits India), you'll get an email update within 7 days of the change if not received ping surisetti.dev@gmail.com via email.
+You bought the Q3 2026 edition. Q4 2026, Q1 2027, and Q2 2027 editions are included free — they'll land in your inbox at the email you used to purchase, roughly every 3 months.
+
+**When to email `surisetti.dev@gmail.com`:**
+- You haven't received the next quarterly edition and it's been more than a week past the expected date
+- A tool recommended in this guide has shut down, changed pricing drastically, or stopped working for India — and you want a faster heads-up than waiting for the next edition
+- You disagree with a recommendation, found a better alternative, or spotted something outdated — feedback shapes the next edition
+- Something in the guide doesn't make sense or a link is broken
+
+**You don't need to email about:**
+- Minor pricing tweaks (a few hundred rupees either way) — these get folded into the next edition automatically
+- General "is this still accurate" check-ins — if a tool materially changes, you'll hear about it without asking
+
+There's no urgency or penalty either way — this is just so you know what's worth a quick note and what isn't.
 
 ---
 
-*Built and maintained by Karthik Surisetti. Disagree with a recommendation? Email surisetti.dev@gmail.com — version 2026-Q4 might include your feedback.*
+*Built and maintained by Karthik Surisetti. Questions, corrections, or feedback — anytime, no need to wait for a "good reason": surisetti.dev@gmail.com*
 
 > Reviewed and verified by Karthik Surisetti before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.
