@@ -70,7 +70,7 @@ After 1 hour with this guide, the buyer:
 
 ## Disclosure block (must appear in PDF footer)
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Karthik Surisetti before publication.*
 > *Last updated: [DATE]. Tool prices and features change frequently — refer to each vendor's website for current details. Educational content, not professional advice.*
 
 ---
