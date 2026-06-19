@@ -11,7 +11,7 @@ price: 499
 
 **The opinionated, India-tested stack — so you stop paying for things you don't need.**
 
-> Reviewed and verified by Suresh Surisetti before publication.
+> Reviewed and verified by Karthik Surisetti before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.
 
 ---
@@ -451,13 +451,13 @@ That's ₹20,400-₹54,000/year of savings or risk-reduction from a ₹499 guide
 
 ---
 
-## Quarterly update guarantee
+## Quarterly update guarantee-if not received ping via email
 
-You bought the Q3 2026 edition. You will receive Q4 2026, Q1 2027, and Q2 2027 editions free in your inbox at `surisetti.dev@gmail.com`. If a tool you depend on dies between editions (e.g., a payment provider exits India), you'll get an email update within 7 days of the change.
+You bought the Q3 2026 edition. You will receive Q4 2026, Q1 2027, and Q2 2027 editions free in your inbox at `surisetti.dev@gmail.com`. If a tool you depend on dies between editions (e.g., a payment provider exits India), you'll get an email update within 7 days of the change if not received ping surisetti.dev@gmail.com via email.
 
 ---
 
-*Built and maintained by Suresh Surisetti. Disagree with a recommendation? Email surisetti.dev@gmail.com — version 2026-Q4 might include your feedback.*
+*Built and maintained by Karthik Surisetti. Disagree with a recommendation? Email surisetti.dev@gmail.com — version 2026-Q4 might include your feedback.*
 
-> Reviewed and verified by Suresh Surisetti before publication.
+> Reviewed and verified by Karthik Surisetti before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.
