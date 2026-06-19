@@ -25,7 +25,7 @@ async function sendWaitlistConfirmation(env, email, productName) {
     body: JSON.stringify({
       sender: {
         name: 'Suresh @ Freelancer OS',
-        email: env.BREVO_SENDER_EMAIL || 'hello@freelanceos.co.in'
+        email: env.BREVO_SENDER_EMAIL || 'noreply@freelanceos.co.in'
       },
       to: [{ email }],
       subject: `You're on the waitlist — ${productName}`,
