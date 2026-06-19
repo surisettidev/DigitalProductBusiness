@@ -61,6 +61,22 @@
       "price": 499,
       "earlyBirdDiscount": 20,
       "launchEta": "July 2026"
+    },
+    "automation-bundle": {
+      "status": "coming-soon",
+      "slug": "automation-bundle",
+      "name": "Freelancer Automation Bundle",
+      "price": 999,
+      "earlyBirdDiscount": 20,
+      "launchEta": "TBD — pending owner decision (see Issue #13)"
+    },
+    "bundle": {
+      "status": "coming-soon",
+      "slug": "bundle",
+      "name": "Complete Freelancer OS (All 5)",
+      "price": 3999,
+      "earlyBirdDiscount": 20,
+      "launchEta": "TBD — ships after all 5 component products go live"
     }
   }
 }
