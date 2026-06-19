@@ -29,7 +29,7 @@ async function sendWaitlistConfirmation(env, email, productName) {
     headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       sender: {
-        name: 'Suresh @ Freelancer OS',
+        name: 'Suresh Surisetti',
         email: senderEmail
       },
       to: [{ email }],
@@ -67,7 +67,7 @@ When it launches, you'll be the first to know and get an early-bird discount.
 
 Reply to this email if you have questions.
 
-— Suresh @ Freelancer OS
+— Suresh Surisetti
 https://freelanceos.co.in`
     })
   });
