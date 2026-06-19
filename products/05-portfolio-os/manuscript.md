@@ -11,7 +11,7 @@ price: ₹1,499
 
 **A done-for-you portfolio website, 10 proven proposal templates, and the 5 documents that close ₹50K-₹10L+ projects. The full sales system for freelancers who want to be seen as a ₹10L/year consultancy, not a ₹2L/year freelancer.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Karthik Surisetti before publication.*
 > *Last updated: 19 June 2026. Tool pricing and features change — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
@@ -721,13 +721,15 @@ The Figma file includes:
 
 ---
 
-## Bi-annual update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. Portfolio/proposal playbooks refresh twice a year (March + September). If you buy in June 2026, your updates are covered through September 2027. Tool features and design trends change; the playbook evolves with them.
+This is the current edition (June 2026). Tool features and design trends shift over time, so newer editions get released as needed. To get the next edition, email `surisetti.dev@gmail.com` with the subject "Portfolio + Proposal OS update" and mention which edition you originally bought. Allow up to 7 business days for a reply.
+
+Future editions are not sent automatically. Continued free updates depend on this product's demand — if it doesn't get an active buyer base, future editions may carry a small additional cost (you'll always be told the price before being charged). This guide may also be retired or replaced if it stops getting used; if that happens before your next requested update, you'll be notified and offered the closest current equivalent.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Karthik Surisetti before publication.*
 > *Last updated: 19 June 2026. Tool pricing and features change — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
