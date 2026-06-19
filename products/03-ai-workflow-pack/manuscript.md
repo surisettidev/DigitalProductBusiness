@@ -11,7 +11,7 @@ price: ₹799
 
 **Stop picking the wrong AI tool. Six ready-to-paste automations that save 5-10 hours a week — on Make.com, n8n, or Google Apps Script.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Karthik Surisetti before publication.*
 > *Last updated: 19 June 2026. AI tools and pricing change quarterly — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
@@ -507,13 +507,15 @@ PROJECT ONBOARDING CHECKLIST
 
 ---
 
-## Quarterly update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. AI tools and Make.com modules change every 3-6 months. I will update this pack every 4 months (March, July, November) and email the new version to every past buyer at no extra cost. Promise covers 2 years from purchase.
+This is the current edition (June 2026). AI tools and Make.com modules change every 3-6 months, so newer editions get released as the landscape shifts. To get the next edition, email `surisetti.dev@gmail.com` with the subject "AI Workflow Pack update" and mention which edition you originally bought. Allow up to 7 business days for a reply.
+
+Future editions are not sent automatically. Continued free updates depend on this product's demand — if it doesn't get an active buyer base, future editions may carry a small additional cost (you'll always be told the price before being charged). This guide may also be retired or replaced if it stops getting used; if that happens before your next requested update, you'll be notified and offered the closest current equivalent.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Karthik Surisetti before publication.*
 > *Last updated: 19 June 2026. AI tools and pricing change quarterly — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
