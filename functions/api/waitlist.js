@@ -18,14 +18,19 @@ const PRODUCT_NAMES = {
 };
 
 async function sendWaitlistConfirmation(env, email, productName) {
-  if (!env.BREVO_API_KEY) return;
+  if (!env.BREVO_API_KEY) {
+    console.warn('[waitlist] BREVO_API_KEY not set, skipping email send');
+    return;
+  }
+  const senderEmail = env.BREVO_SENDER_EMAIL || 'noreply@freelanceos.co.in';
+  console.log('[waitlist] Sending confirmation to', email, 'from', senderEmail);
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       sender: {
         name: 'Suresh @ Freelancer OS',
-        email: env.BREVO_SENDER_EMAIL || 'hello@freelanceos.co.in'
+        email: senderEmail
       },
       to: [{ email }],
       subject: `You're on the waitlist — ${productName}`,
@@ -124,8 +129,16 @@ export async function onRequestPost({ request, env }) {
 
       // Send confirmation email (non-fatal)
       try {
-        await sendWaitlistConfirmation(env, email, productName);
-      } catch (_) { /* non-fatal */ }
+        const emailRes = await sendWaitlistConfirmation(env, email, productName);
+        if (!emailRes.ok) {
+          const errBody = await emailRes.text();
+          console.error('[waitlist] Brevo email send failed:', emailRes.status, errBody);
+        } else {
+          console.log('[waitlist] Brevo email sent successfully');
+        }
+      } catch (err) {
+        console.error('[waitlist] Email send exception:', err.message);
+      }
     }
 
     return new Response(JSON.stringify({ ok: true }), {
