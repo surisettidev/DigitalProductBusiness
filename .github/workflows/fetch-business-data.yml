@@ -1,0 +1,79 @@
+name: Fetch Business Data Snapshot
+
+# Triggered manually by the daily agent via the GitHub API (workflow_dispatch),
+# or runs automatically every morning at 3:00 AM UTC (8:30 AM IST) as a backup.
+#
+# WHY THIS EXISTS:
+# GitHub Secrets are write-only — no API can read them back, including the
+# daily agent's PAT. This workflow runs INSIDE GitHub's infrastructure where
+# secrets are injected as env vars, calls the real APIs, and writes only the
+# RESULTS (not the secrets) to a file the daily agent can safely read.
+
+on:
+  workflow_dispatch:
+    inputs:
+      triggered_by:
+        description: 'Who/what triggered this run'
+        required: false
+        default: 'manual'
+  schedule:
+    - cron: '0 3 * * *'  # 3:00 AM UTC = 8:30 AM IST daily, backup safety net
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install script dependencies
+        run: npm install --prefix .github/scripts
+
+      - name: Fetch GA4 data
+        id: ga4
+        continue-on-error: true
+        env:
+          GOOGLE_ANALYTICS_KEY_JSON: ${{ secrets.GOOGLE_ANALYTICS_KEY_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: node .github/scripts/fetch-ga4.js
+
+      - name: Fetch Clarity data
+        id: clarity
+        continue-on-error: true
+        env:
+          CLARITY_API_TOKEN: ${{ secrets.CLARITY_API_TOKEN }}
+        run: node .github/scripts/fetch-clarity.js
+
+      - name: Fetch Razorpay orders
+        id: razorpay
+        continue-on-error: true
+        env:
+          RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID }}
+          RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET }}
+        run: node .github/scripts/fetch-razorpay.js
+
+      - name: Fetch Brevo stats
+        id: brevo
+        continue-on-error: true
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: node .github/scripts/fetch-brevo.js
+
+      - name: Merge into snapshot
+        run: node .github/scripts/merge-snapshot.js
+
+      - name: Commit snapshot
+        run: |
+          git config user.name "business-data-bot"
+          git config user.email "actions@github.com"
+          git add daily-operations/live-data-snapshot.json
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ) (trigger=${{ github.event.inputs.triggered_by || 'schedule' }})"
+          git push
