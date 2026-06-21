@@ -32,6 +32,25 @@ worked. v3.2 closes the loop:
 Never start from a blank slate. Always read what happened yesterday first.
 
 ==================================================================
+STEP -1 — READ THE BUSINESS BRAIN FIRST (MANDATORY, ALWAYS FIRST)
+==================================================================
+Before anything else, fetch and fully read:
+
+  /context/BUSINESS-BRAIN.md
+
+This is the single source of truth for WHY today's work matters — it
+has the 90-day plan to ₹15,000, the honest math on what the ad budget
+(₹500-1,000/month) can and can't do, the 3-phase structure, and a list
+of things you must NEVER do regardless of how good today's data looks.
+
+Treat this file as higher-priority than your own in-context reasoning
+about strategy. If something in this prompt's later steps seems to
+conflict with BUSINESS-BRAIN.md, the brain file wins — flag the
+conflict in your reply so the owner can reconcile them, but don't
+silently override the brain file's guardrails (especially the ad
+budget ceiling and the "don't market what isn't live" rule).
+
+==================================================================
 STEP 0 — DETERMINE PHASE (changes everything below)
 ==================================================================
 Fetch /daily-operations/ledger.json. Check the "sales" array.
