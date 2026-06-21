@@ -8,6 +8,26 @@ name: Fetch Business Data Snapshot
 # daily agent's PAT. This workflow runs INSIDE GitHub's infrastructure where
 # secrets are injected as env vars, calls the real APIs, and writes only the
 # RESULTS (not the secrets) to a file the daily agent can safely read.
+#
+# 2026-06-21 — RESILIENCE PATCH (PR opened by daily-agent v3.2 on its own
+# first-run failure mode):
+#   The previous "Commit snapshot" step pushed straight to `main`. Branch
+#   protection on `main` rejects every such push (`remote: error: GH006:
+#   Protected branch update failed for refs/heads/main`), so the snapshot
+#   file never landed and the closed-loop agent had nothing to read.
+#
+#   Until the owner either (a) allow-lists `github-actions[bot]` on
+#   protected `main` for the single path `daily-operations/live-data-snapshot.json`,
+#   or (b) adds a PAT with admin-bypass as `WORKFLOW_PUSH_TOKEN` secret,
+#   we do TWO defensive things here:
+#     1. Always upload the snapshot as a workflow artifact (`live-data-snapshot`)
+#        so the daily agent can pull it via the Actions API even when the
+#        push to main is rejected.
+#     2. Keep the push attempt, but mark it `continue-on-error: true` so the
+#        workflow finishes green and downstream automation isn't blocked
+#        by what is essentially a permissions issue, not a data issue.
+#   If the owner later configures push permissions, no further code change
+#   is needed — the existing push step will simply start succeeding.
 
 on:
   workflow_dispatch:
@@ -70,10 +90,32 @@ jobs:
       - name: Merge into snapshot
         run: node .github/scripts/merge-snapshot.js
 
-      - name: Commit snapshot
+      # Always-available read path: workflow artifact. The daily agent can
+      # GET /repos/.../actions/runs/<id>/artifacts and download `live-data-snapshot`
+      # even if the commit-to-main step below is rejected by branch protection.
+      - name: Upload snapshot as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-data-snapshot
+          path: daily-operations/live-data-snapshot.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      # Best-effort: try to push to main. Will fail until owner removes branch
+      # protection for this specific path or supplies a PAT with admin bypass.
+      # continue-on-error so the overall workflow stays green and the artifact
+      # path above remains usable.
+      - name: Commit snapshot (best-effort, may be blocked by branch protection)
+        continue-on-error: true
         run: |
           git config user.name "business-data-bot"
           git config user.email "actions@github.com"
           git add daily-operations/live-data-snapshot.json
-          git diff --staged --quiet && echo "No changes to commit" || git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ) (trigger=${{ github.event.inputs.triggered_by || 'schedule' }})"
-          git push
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ) (trigger=${{ github.event.inputs.triggered_by || 'schedule' }})"
+          if ! git push; then
+            echo "::warning::Push to main rejected (likely branch protection). Snapshot remains available as artifact 'live-data-snapshot' on this run."
+            echo "::warning::To enable direct commits, owner must either add a bypass rule for github-actions[bot] on path daily-operations/live-data-snapshot.json, or add a PAT with admin-bypass as the WORKFLOW_PUSH_TOKEN secret."
+            exit 1
+          fi
