@@ -108,25 +108,21 @@ jobs:
       # path above remains usable.
       - name: Commit snapshot (best-effort, may be blocked by branch protection)
         continue-on-error: true
+        env:
+          PUSH_TOKEN: ${{ secrets.WORKFLOW_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "business-data-bot"
           git config user.email "actions@github.com"
-          echo "--- Working directory ---"
-          pwd
           echo "--- Snapshot file exists? ---"
-          ls -la daily-operations/live-data-snapshot.json || echo "FILE NOT FOUND"
-          echo "--- Git status before add ---"
-          git status --short
+          ls -la daily-operations/live-data-snapshot.json || echo "FILE NOT FOUND at daily-operations/live-data-snapshot.json"
           git add daily-operations/live-data-snapshot.json
-          echo "--- Git status after add ---"
-          git status --short
           if git diff --staged --quiet; then
-            echo "No staged changes — file may not have been created by merge-snapshot.js"
+            echo "No staged changes — snapshot file may not have been written."
             exit 0
           fi
           git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ) (trigger=${{ github.event.inputs.triggered_by || 'schedule' }})"
-          if ! git push; then
-            echo "::warning::Push to main rejected (likely branch protection). Snapshot available as artifact 'live-data-snapshot' on this run."
+          if ! git push "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main; then
+            echo "::warning::Push to main rejected. Add WORKFLOW_PUSH_TOKEN secret (a PAT with contents:write) to bypass branch protection. Snapshot available as artifact."
             exit 1
           fi
-          echo "Snapshot committed and pushed to main successfully."
+          echo "Snapshot pushed to main successfully."
