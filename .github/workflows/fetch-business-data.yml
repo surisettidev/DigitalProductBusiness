@@ -111,11 +111,22 @@ jobs:
         run: |
           git config user.name "business-data-bot"
           git config user.email "actions@github.com"
+          echo "--- Working directory ---"
+          pwd
+          echo "--- Snapshot file exists? ---"
+          ls -la daily-operations/live-data-snapshot.json || echo "FILE NOT FOUND"
+          echo "--- Git status before add ---"
+          git status --short
           git add daily-operations/live-data-snapshot.json
-          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          echo "--- Git status after add ---"
+          git status --short
+          if git diff --staged --quiet; then
+            echo "No staged changes — file may not have been created by merge-snapshot.js"
+            exit 0
+          fi
           git commit -m "data: snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ) (trigger=${{ github.event.inputs.triggered_by || 'schedule' }})"
           if ! git push; then
-            echo "::warning::Push to main rejected (likely branch protection). Snapshot remains available as artifact 'live-data-snapshot' on this run."
-            echo "::warning::To enable direct commits, owner must either add a bypass rule for github-actions[bot] on path daily-operations/live-data-snapshot.json, or add a PAT with admin-bypass as the WORKFLOW_PUSH_TOKEN secret."
+            echo "::warning::Push to main rejected (likely branch protection). Snapshot available as artifact 'live-data-snapshot' on this run."
             exit 1
           fi
+          echo "Snapshot committed and pushed to main successfully."
