@@ -12,3 +12,4 @@ docs/
 .dev.vars
 ecosystem.config.cjs
 wrangler.toml
+trash/
