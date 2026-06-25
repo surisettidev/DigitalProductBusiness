@@ -11,7 +11,7 @@ price: ₹799
 
 **Stop picking the wrong AI tool. Six ready-to-paste automations that save 5-10 hours a week — on Make.com, n8n, or Google Apps Script.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. AI tools and pricing change quarterly — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
@@ -507,13 +507,20 @@ PROJECT ONBOARDING CHECKLIST
 
 ---
 
-## Quarterly update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. AI tools and Make.com modules change every 3-6 months. I will update this pack every 4 months (March, July, November) and email the new version to every past buyer at no extra cost. Promise covers 2 years from purchase.
+This is the Q3 2026 edition. AI tools and Make.com modules change every 3-6 months, so newer editions get released as the landscape shifts.
+
+**Future editions are not sent automatically.** To get the next edition when it's ready, email `surisetti.dev@gmail.com` with the subject "AI Workflow Pack update" (mention which edition you originally bought). Allow up to 7 business days for a reply with the new edition.
+
+**A few things to know:**
+- Continued free updates depend on this product's demand. If it doesn't get an active buyer base, future editions may come at a small additional cost — you'll be told the price before being charged, never billed automatically.
+- This guide may be retired or replaced by a future product if it stops getting used. If that happens before your next requested update, you'll be notified and offered whatever the closest current equivalent is.
+- If a tool you depend on changes drastically between editions (shuts down, exits India, etc.), that's still on you to verify independently — this guide is a starting point, not a live monitoring service.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. AI tools and pricing change quarterly — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---

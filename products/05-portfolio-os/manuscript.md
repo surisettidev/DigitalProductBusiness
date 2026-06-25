@@ -11,7 +11,7 @@ price: ₹1,499
 
 **A done-for-you portfolio website, 10 proven proposal templates, and the 5 documents that close ₹50K-₹10L+ projects. The full sales system for freelancers who want to be seen as a ₹10L/year consultancy, not a ₹2L/year freelancer.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Tool pricing and features change — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---
@@ -721,13 +721,20 @@ The Figma file includes:
 
 ---
 
-## Bi-annual update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. Portfolio/proposal playbooks refresh twice a year (March + September). If you buy in June 2026, your updates are covered through September 2027. Tool features and design trends change; the playbook evolves with them.
+This is the Q3 2026 edition. Portfolio/proposal playbooks refresh twice a year (March + September), so newer editions get released as design trends and tool features shift.
+
+**Future editions are not sent automatically.** To get the next edition when it's ready, email `surisetti.dev@gmail.com` with the subject "Portfolio + Proposal OS update" (mention which edition you originally bought). Allow up to 7 business days for a reply with the new edition.
+
+**A few things to know:**
+- Continued free updates depend on this product's demand. If it doesn't get an active buyer base, future editions may come at a small additional cost — you'll be told the price before being charged, never billed automatically.
+- This guide may be retired or replaced by a future product if it stops getting used. If that happens before your next requested update, you'll be notified and offered whatever the closest current equivalent is.
+- If a tool you depend on (Figma, Super.so, etc.) changes drastically between editions, that's still on you to verify independently — this guide is a starting point, not a live monitoring service.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Tool pricing and features change — refer to each tool's official site for current details. Educational content, not professional advice.*
 
 ---

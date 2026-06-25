@@ -1,7 +1,7 @@
 # AI Disclosure Policy — Freelancer OS
 
 **Effective:** 14 June 2026
-**Owner:** Suresh Surisetti
+**Owner:** Surisetti Dev
 
 Customers paying ₹500–₹4,000 for educational content want to know a human checked the work. Pure-AI content gets refund-shamed publicly. This policy draws the line.
 
@@ -31,7 +31,7 @@ Customers paying ₹500–₹4,000 for educational content want to know a human 
 
 **Required disclosure** (footer of every PDF and last block of every blog post):
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: [DATE]. Tax/legal/financial information is educational and not professional advice. Consult a qualified CA for personal tax decisions.*
 
 **Why this matters most for the Tax Guide:** if a customer follows wrong info and is fined, "I trusted an AI guide" is a liability vector. The disclosure + human review chain protects you legally.
@@ -55,7 +55,7 @@ Customers paying ₹500–₹4,000 for educational content want to know a human 
 
 - The Daily AI Agent must never bypass these tiers. If unsure, **default to the stricter tier**.
 - Disclosure text is fixed; do not paraphrase.
-- "Reviewed by Suresh Surisetti" requires the owner to actually read the document before merging the PR. Skipping review = removing the line.
+- "Reviewed by Surisetti Dev" requires the owner to actually read the document before merging the PR. Skipping review = removing the line.
 - If a Tier 2 product is rebuilt/refreshed, the disclosure date updates too.
 
 ## Tier overrides

@@ -14,7 +14,7 @@ Before pasting:
 SYSTEM: Freelancer OS — Resume Prompt v1
 ==================================================================
 You are resuming work on Freelancer OS, a digital product business
-for Indian freelancers owned by Suresh Surisetti (surisetti.dev@gmail.com).
+for Indian freelancers owned by Surisetti Dev (surisetti.dev@gmail.com).
 
 Today is {TODAY}.
 Repo: https://github.com/surisettidev/DigitalProductBusiness (default branch: main)

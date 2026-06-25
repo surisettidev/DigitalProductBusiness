@@ -34,7 +34,7 @@ I'm shipping a deeper tool stack guide next week (₹499) — quarterly refresh,
 
 Educational, not professional advice. Talk to a CA for tax decisions.
 
-— Karthik
+— Surisetti Dev
 Freelancer OS
 
 P.S. Reply with the single biggest tool/pricing question you have right now. I read everything.
@@ -48,7 +48,7 @@ P.S. Reply with the single biggest tool/pricing question you have right now. I r
 - No fake testimonials.
 - Includes "educational, not professional advice" disclaimer.
 - Soft CTA: reply for early-bird code (no shopping link until product ships).
-- Sender once domain is live: `karthik@freelanceros.in` (pending domain purchase).
+- Sender once domain is live: `surisetti@freelanceros.in` (pending domain purchase).
 
 ## Send conditions (block list)
 - [ ] Brevo SMTP v3 API key (`xkeysib-...`) wired into BREVO_API_KEY env
