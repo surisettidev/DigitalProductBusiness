@@ -1,6 +1,6 @@
 # Issue #13 — Alignment Notes (Response to Agent's Audit)
 
-**Author:** Suresh Surisetti (via AI agent build run 19 June 2026)
+**Author:** Surisetti Dev (via AI agent build run 19 June 2026)
 **Status:** READ-ONLY audit + recommendations. **No code changes proposed to CATALOG / product-status.json in this PR.** Per OPERATING-CONTRACT.md, those changes require owner approval via `needs-approval` Issue.
 
 This document is the response to Issue #13's three sales-readiness findings. It does **not** modify any live files. It proposes a path forward for owner approval.
@@ -238,5 +238,5 @@ This is a **content-only PR** that adds 5 markdown files. Safe to merge. The 6 f
 
 ---
 
-> Reviewed and verified by Suresh Surisetti before publication.
+> Reviewed and verified by Surisetti Dev before publication.
 > Last updated: 19 June 2026. Tooling and product details may change — verify each before launch.

@@ -1,7 +1,7 @@
 # Freelancer OS — Operating Contract v1.0
 
 **Effective:** 14 June 2026
-**Owner:** Suresh Surisetti — surisetti.dev@gmail.com
+**Owner:** Surisetti Dev — surisetti.dev@gmail.com
 **Site:** https://freelance-os.pages.dev
 **Repo:** https://github.com/surisettidev/DigitalProductBusiness
 
@@ -181,7 +181,7 @@ See `/config/AI-DISCLOSURE-POLICY.md`. Summary:
 | Content | AI allowed | Disclosure | Human review |
 |---|---|---|---|
 | Marketing copy (homepage, social, ads, FAQ) | yes | none | yes (skim) |
-| Educational PDFs (Tax Guide, Tool Stack, etc.) | yes (first draft) | mandatory footer: *"Reviewed and verified by Suresh Surisetti before publication"* | yes (mandatory) |
+| Educational PDFs (Tax Guide, Tool Stack, etc.) | yes (first draft) | mandatory footer: *"Reviewed and verified by Surisetti Dev before publication"* | yes (mandatory) |
 | Customer support emails | drafts only | n/a | yes (you send) |
 | Blog posts | yes (first draft) | "Human-edited" byline | yes |
 

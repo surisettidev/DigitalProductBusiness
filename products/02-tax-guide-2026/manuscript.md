@@ -11,7 +11,7 @@ price: ₹999
 
 **Stop being scared of GST and income tax. Walk into your CA's office with the right questions. Save ₹15,000-₹50,000 in fees and penalties this year.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Indian tax rules change — refer to incometaxindia.gov.in and cbic-gst.gov.in for current details. Educational content, not professional advice.*
 
 ---
@@ -442,15 +442,19 @@ The template is a `.docx` and `.pdf` both. Edit your details once, save as your 
 
 ---
 
-## Quarterly update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. I will update the 2026-27 edition every April (after Union Budget) and email the new PDF to every past buyer at no extra cost. The promise covers 2 years from the date of purchase — so if you buy in June 2026, your updates are covered through April 2028.
+This is the 2026-27 edition. To get the next updated edition (after the next Union Budget, or sooner if tax rules change materially), email `surisetti.dev@gmail.com` with the subject "Tax Guide update" and mention which edition you originally bought. Allow up to 7 business days for a reply.
 
-If tax rules change mid-year and materially affect this guide, I will issue an interim update within 30 days.
+**Future editions are not sent automatically.** Continued free updates depend on this product's demand. If it doesn't get an active buyer base, future editions may come at a small additional cost — you'll be told the price before being charged, never billed automatically.
+
+**A few things to know:**
+- This guide may be retired or replaced by a future product if it stops getting used. If that happens before your next requested update, you'll be notified and offered whatever the closest current equivalent is.
+- If tax rules change materially mid-year, that's still worth verifying independently via incometaxindia.gov.in or your CA — this guide is a starting point, not a live monitoring service.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Indian tax rules change — refer to incometaxindia.gov.in and cbic-gst.gov.in for current details. Educational content, not professional advice.*
 
 ---

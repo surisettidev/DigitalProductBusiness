@@ -52,7 +52,7 @@ async function sendWaitlistConfirmation(env, email, productName) {
             In the meantime, if you have questions or want to share what would make this product more useful for you, just reply to this email.
           </p>
           <p style="font-size:14px;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:24px;margin:0;">
-            — Suresh Surisetti<br>
+            — Surisetti Dev<br>
             <a href="https://freelanceos.co.in" style="color:#6366f1;text-decoration:none;">freelanceos.co.in</a>
           </p>
         </td></tr>
@@ -67,7 +67,7 @@ When it launches, you'll be the first to know and get an early-bird discount.
 
 Reply to this email if you have questions.
 
-— Suresh @ Freelancer OS
+— Surisetti Dev @ Freelancer OS
 https://freelanceos.co.in`
     })
   });

@@ -11,7 +11,7 @@ price: 499
 
 **The opinionated, India-tested stack — so you stop paying for things you don't need.**
 
-> Reviewed and verified by Karthik Surisetti before publication.
+> Reviewed and verified by Surisetti Dev before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.
 
 ---
@@ -464,7 +464,7 @@ This is the Q3 2026 edition. Tools and pricing in India change fast, so newer ed
 
 ---
 
-*Built and maintained by Karthik Surisetti. Questions, corrections, or feedback — anytime: surisetti.dev@gmail.com*
+*Built and maintained by Surisetti Dev. Questions, corrections, or feedback — anytime: surisetti.dev@gmail.com*
 
-> Reviewed and verified by Karthik Surisetti before publication.
+> Reviewed and verified by Surisetti Dev before publication.
 > Last updated: 19 June 2026. Tool prices and feature changes happen quarterly — refer to each vendor's website for current details. Educational content, not professional advice.

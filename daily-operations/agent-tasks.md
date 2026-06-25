@@ -22,7 +22,7 @@
 ## Constraints
 - No fake testimonials, no fake numbers.
 - Tier 2 product content REQUIRES the disclosure footer:
-  > *Reviewed and verified by Suresh Surisetti before publication. Last updated: [DATE]. Tax/legal/financial information is educational and not professional advice. Consult a qualified CA for personal tax decisions.*
+  > *Reviewed and verified by Surisetti Dev before publication. Last updated: [DATE]. Tax/legal/financial information is educational and not professional advice. Consult a qualified CA for personal tax decisions.*
 - Tool Stack pricing/features must be verified against the tool's official site at time of writing — mark anything you can't verify with `[NEEDS-VERIFY]`.
 - One PR per scope. Don't bundle product content + infra changes in one PR.
 

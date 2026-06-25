@@ -11,7 +11,7 @@ price: ₹1,299
 
 **50+ India-specific scripts, 10 real case studies, and the exact words to use when a client ghosts, lowballs, or fights your invoice. Recover ₹2,00,000+ in unpaid invoices and lost rate hikes.**
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Indian business communication norms and platform features change — verify before applying. Educational content, not professional advice.*
 
 ---
@@ -877,13 +877,20 @@ Freelancer: __________ Date: __________
 
 ---
 
-## Annual update guarantee
+## Future editions — how to get them
 
-This product is refresh-promised. Indian business communication norms evolve slowly, but platform features (WhatsApp Business, Razorpay, etc.) update every 6-12 months. I will refresh this vault once a year (next refresh: June 2027) and email the new version to every past buyer. Promise covers 2 years from purchase.
+This is the Q3 2026 edition. Platform features (WhatsApp Business, Razorpay, etc.) update every 6-12 months, so newer editions get released as the landscape shifts.
+
+**Future editions are not sent automatically.** To get the next edition when it's ready, email `surisetti.dev@gmail.com` with the subject "Client Negotiation Vault update" (mention which edition you originally bought). Allow up to 7 business days for a reply with the new edition.
+
+**A few things to know:**
+- Continued free updates depend on this product's demand. If it doesn't get an active buyer base, future editions may come at a small additional cost — you'll be told the price before being charged, never billed automatically.
+- This guide may be retired or replaced by a future product if it stops getting used. If that happens before your next requested update, you'll be notified and offered whatever the closest current equivalent is.
+- Indian business communication norms evolve slowly, but platform features and case study relevance can shift fast — verify before applying any specific script to a real situation.
 
 ---
 
-> *Reviewed and verified by Suresh Surisetti before publication.*
+> *Reviewed and verified by Surisetti Dev before publication.*
 > *Last updated: 19 June 2026. Indian business communication norms and platform features change — verify before applying. Educational content, not professional advice.*
 
 ---
